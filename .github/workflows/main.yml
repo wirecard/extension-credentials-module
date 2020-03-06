@@ -27,8 +27,8 @@ jobs:
         uses: wirecard/setup-php@master
         with:
           php-version: ${{ matrix.php-versions }}
-          extension-csv: simplexml
-          ini-values-csv: post_max_size=256M, short_open_tag=On
+          extensions: simplexml
+          ini-values: post_max_size=256M, short_open_tag=On
           coverage: xdebug
           pecl: false
 
