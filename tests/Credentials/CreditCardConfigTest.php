@@ -3,7 +3,6 @@
 namespace CredentialsReaderTest\Reader;
 
 use CredentialsReader\Credentials\CreditCardConfig;
-use CredentialsReader\Credentials\DefaultConfig;
 use CredentialsReader\Exception\MissedCredentialsException;
 use PHPUnit\Framework\TestCase;
 

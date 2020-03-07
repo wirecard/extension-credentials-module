@@ -57,22 +57,6 @@ class DefaultConfig
     }
 
     /**
-     * @param string
-     */
-    public function setBaseUrl($baseUrl)
-    {
-        $this->baseUrl = $baseUrl;
-    }
-
-    /**
-     * @param string $merchantAccountId
-     */
-    public function setMerchantAccountId($merchantAccountId)
-    {
-        $this->merchantAccountId = $merchantAccountId;
-    }
-
-    /**
      * @return array
      */
     protected function requiredAttributeList()
@@ -88,7 +72,7 @@ class DefaultConfig
      */
     protected function loadFromCredentials(array $credentials)
     {
-        $this->setBaseUrl($credentials[self::ATTRIBUTE_BASE_URL]);
-        $this->setMerchantAccountId($credentials[self::ATTRIBUTE_MERCHANT_ACCOUNT_ID]);
+        $this->baseUrl = $credentials[self::ATTRIBUTE_BASE_URL];
+        $this->merchantAccountId = $credentials[self::ATTRIBUTE_MERCHANT_ACCOUNT_ID];
     }
 }

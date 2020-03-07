@@ -47,30 +47,6 @@ class CreditCardConfig extends DefaultConfig
     }
 
     /**
-     * @param string $wppUrl
-     */
-    public function setWppUrl($wppUrl)
-    {
-        $this->wppUrl = $wppUrl;
-    }
-
-    /**
-     * @param string $threeDSecret
-     */
-    public function setThreeDSecret($threeDSecret)
-    {
-        $this->threeDSecret = $threeDSecret;
-    }
-
-    /**
-     * @param string $threeDMerchantAccountId
-     */
-    public function setThreeDMerchantAccountId($threeDMerchantAccountId)
-    {
-        $this->threeDMerchantAccountId = $threeDMerchantAccountId;
-    }
-
-    /**
      * @var string
      */
     private $threeDSecret;
@@ -98,8 +74,8 @@ class CreditCardConfig extends DefaultConfig
     protected function loadFromCredentials(array $credentials)
     {
         parent::loadFromCredentials($credentials);
-        $this->setWppUrl($credentials[self::ATTRIBUTE_WPP_URL]);
-        $this->setThreeDMerchantAccountId($credentials[self::ATTRIBUTE_3D_MERCHANT_ACCOUNT_ID]);
-        $this->setThreeDSecret($credentials[self::ATTRIBUTE_3D_SECRET]);
+        $this->wppUrl = $credentials[self::ATTRIBUTE_WPP_URL];
+        $this->threeDMerchantAccountId = $credentials[self::ATTRIBUTE_3D_MERCHANT_ACCOUNT_ID];
+        $this->threeDSecret = $credentials[self::ATTRIBUTE_3D_SECRET];
     }
 }
