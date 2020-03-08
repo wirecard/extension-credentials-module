@@ -13,11 +13,6 @@ class XMLReader implements ReaderInterface
     const XML_SCHEMA_FILE_NAME = "schema.xsd";
 
     /**
-     * @var array
-     */
-    private $credentials = [];
-
-    /**
      * @var string
      */
     private $rawXML;
@@ -34,7 +29,6 @@ class XMLReader implements ReaderInterface
         if (!$this->validate()) {
             throw new InvalidXMLFormatException();
         }
-        $this->loadCredentials();
     }
 
     /**
@@ -43,14 +37,6 @@ class XMLReader implements ReaderInterface
     public function getRawXML()
     {
         return $this->rawXML;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCredentials()
-    {
-        return $this->credentials;
     }
 
     /**
@@ -82,13 +68,14 @@ class XMLReader implements ReaderInterface
     /**
      * @since 1.0.0
      */
-    public function loadCredentials()
+    public function toArray()
     {
+        $credentials = [];
         $xml = (array)simplexml_load_string($this->getRawXML());
-        foreach ($xml as $paymentMethod => $credentials) {
-            $this->credentials[$paymentMethod] = (array)$credentials;
+        foreach ($xml as $paymentMethod => $credentialItem) {
+            $credentials[$paymentMethod] = (array)$credentialItem;
         }
 
-        return $this;
+        return $credentials;
     }
 }

@@ -40,7 +40,7 @@ class Module
     private function loadCredentialsConfig()
     {
         $this->credentialsConfigList = (new ConfigFactory())->createConfigList(
-            $this->reader->getCredentials()
+            $this->reader->toArray()
         );
         return $this;
     }

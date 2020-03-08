@@ -4,16 +4,10 @@ namespace Credentials\Reader;
 
 interface ReaderInterface
 {
-
     /**
      * @return array
      */
-    public function loadCredentials();
-
-    /**
-     * @return array
-     */
-    public function getCredentials();
+    public function toArray();
 
     /**
      * @return bool

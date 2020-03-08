@@ -86,7 +86,6 @@ class XMLReaderTest extends TestCase
      * @param array $expectedResult
      * @dataProvider plainXMLDataProvider
      * @covers ::getCredentials()
-     * @covers ::loadCredentials()
      */
     public function testCredentials($data, $expectedResult)
     {
@@ -94,8 +93,7 @@ class XMLReaderTest extends TestCase
         $reader = $this->getMockBuilder(XMLReader::class)
             ->setMethods(['getRawXML'])->disableOriginalConstructor()->getMock();
         $reader->expects($this->any())->method('getRawXML')->willReturn($data);
-        $reader->loadCredentials();
-        $this->assertEquals($expectedResult, $reader->getCredentials());
+        $this->assertEquals($expectedResult, $reader->toArray());
     }
 
     public function testValidate()
