@@ -9,19 +9,19 @@ use Credentials\Exception\MissedCredentialsException;
 class ConfigFactory
 {
     /**
-     * @param $paymentMethodType
+     * @param $paymentMethod
      * @param array $credentials
      * @return DefaultConfig|CreditCardConfig
      * @throws InvalidPaymentMethodException
      * @throws MissedCredentialsException
      */
-    public function createConfig($paymentMethodType, array $credentials)
+    public function createConfig($paymentMethod, array $credentials)
     {
-        if (!in_array($paymentMethodType, PaymentMethod::availablePaymentMethods())) {
-            throw new InvalidPaymentMethodException($paymentMethodType);
+        if (!in_array($paymentMethod, PaymentMethod::availablePaymentMethods())) {
+            throw new InvalidPaymentMethodException($paymentMethod);
         }
 
-        if ($paymentMethodType === PaymentMethod::TYPE_CREDIT_CARD) {
+        if ($paymentMethod === PaymentMethod::TYPE_CREDIT_CARD) {
             return new CreditCardConfig($credentials);
         }
 

@@ -2,7 +2,7 @@
 
 namespace Credentials\Config;
 
-class CreditCardConfig extends DefaultConfig
+class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardConfigInterface
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class CreditCardConfig extends DefaultConfig
     private $wppUrl;
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getWppUrl()
     {
@@ -31,7 +31,7 @@ class CreditCardConfig extends DefaultConfig
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getThreeDSecret()
     {
@@ -39,7 +39,7 @@ class CreditCardConfig extends DefaultConfig
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getThreeDMerchantAccountId()
     {

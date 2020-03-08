@@ -4,7 +4,7 @@ namespace Credentials\Config;
 
 use Credentials\Exception\MissedCredentialsException;
 
-class DefaultConfig
+class DefaultConfig implements CredentialsConfigInterface
 {
     /**
      * @var string
@@ -19,12 +19,42 @@ class DefaultConfig
     /**
      * @var string
      */
+    const ATTRIBUTE_SECRET = "secret";
+
+    /**
+     * @var string
+     */
+    const ATTRIBUTE_HTTP_USER = "http_user";
+
+    /**
+     * @var string
+     */
+    const ATTRIBUTE_HTTP_PASSWORD = "http_pass";
+
+    /**
+     * @var string
+     */
     private $baseUrl;
 
     /**
      * @var string
      */
     private $merchantAccountId;
+
+    /**
+     * @var string
+     */
+    private $secret;
+
+    /**
+     * @var string
+     */
+    private $httpUser;
+
+    /**
+     * @var string
+     */
+    private $httpPassword;
 
     /**
      * BaseConfig constructor.
@@ -35,13 +65,13 @@ class DefaultConfig
     {
         $missedKeys = array_diff($this->requiredAttributeList(), array_keys($credentials));
         if (count($missedKeys) > 0) {
-            throw new MissedCredentialsException(implode(", ", array_values($missedKeys)) . " are required!");
+            throw new MissedCredentialsException(array_values($missedKeys));
         }
         $this->loadFromCredentials($credentials);
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getBaseUrl()
     {
@@ -49,11 +79,35 @@ class DefaultConfig
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getMerchantAccountId()
     {
         return $this->merchantAccountId;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSecret()
+    {
+        return $this->secret;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHttpUser()
+    {
+        return $this->httpUser;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHttpPassword()
+    {
+        return $this->httpPassword;
     }
 
     /**
@@ -63,7 +117,10 @@ class DefaultConfig
     {
         return [
             self::ATTRIBUTE_MERCHANT_ACCOUNT_ID,
+            self::ATTRIBUTE_SECRET,
             self::ATTRIBUTE_BASE_URL,
+            self::ATTRIBUTE_HTTP_USER,
+            self::ATTRIBUTE_HTTP_PASSWORD,
         ];
     }
 
@@ -74,5 +131,8 @@ class DefaultConfig
     {
         $this->baseUrl = $credentials[self::ATTRIBUTE_BASE_URL];
         $this->merchantAccountId = $credentials[self::ATTRIBUTE_MERCHANT_ACCOUNT_ID];
+        $this->secret = $credentials[self::ATTRIBUTE_SECRET];
+        $this->httpUser = $credentials[self::ATTRIBUTE_HTTP_USER];
+        $this->httpPassword = $credentials[self::ATTRIBUTE_HTTP_PASSWORD];
     }
 }

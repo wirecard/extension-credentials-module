@@ -42,8 +42,11 @@ class CreditCardConfigTest extends TestCase
     public function getDefaultConfigCredentials()
     {
         return [
-            CreditCardConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
-            CreditCardConfig::ATTRIBUTE_BASE_URL => "https://api.wirecard.com",
+            DefaultConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
+            DefaultConfig::ATTRIBUTE_BASE_URL => "https://base.wirecard.com",
+            DefaultConfig::ATTRIBUTE_SECRET => "secret",
+            DefaultConfig::ATTRIBUTE_HTTP_USER => "http_user",
+            DefaultConfig::ATTRIBUTE_HTTP_PASSWORD => "http_password",
         ];
     }
 
@@ -52,13 +55,13 @@ class CreditCardConfigTest extends TestCase
      */
     public function getCreditCardConfigCredentials()
     {
-        return [
-            CreditCardConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
-            CreditCardConfig::ATTRIBUTE_BASE_URL => "https://api.wirecard.com",
+        $creditCardCredentials =  [
             CreditCardConfig::ATTRIBUTE_WPP_URL => "https://wpp.wirecard.com",
             CreditCardConfig::ATTRIBUTE_3D_SECRET => "topSecret",
             CreditCardConfig::ATTRIBUTE_3D_MERCHANT_ACCOUNT_ID => "123456",
         ];
+
+        return array_merge($this->getDefaultConfigCredentials(), $creditCardCredentials);
     }
 
     /**
