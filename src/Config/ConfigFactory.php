@@ -37,8 +37,8 @@ class ConfigFactory
     public function createConfigList(array $credentials)
     {
         $configList = [];
-        foreach ($credentials as $paymentMethod => $data) {
-            $configList[$paymentMethod] = $this->createConfig($paymentMethod, $data);
+        foreach ($credentials as $paymentMethod => $credentialItem) {
+            $configList[$paymentMethod] = $this->createConfig($paymentMethod, $credentialItem);
         }
         return $configList;
     }

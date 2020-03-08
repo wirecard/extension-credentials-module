@@ -23,6 +23,16 @@ class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardCon
     private $wppUrl;
 
     /**
+     * @var string
+     */
+    private $threeDSecret;
+
+    /**
+     * @var string
+     */
+    private $threeDMerchantAccountId;
+
+    /**
      * @inheritDoc
      */
     public function getWppUrl()
@@ -45,16 +55,6 @@ class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardCon
     {
         return $this->threeDMerchantAccountId;
     }
-
-    /**
-     * @var string
-     */
-    private $threeDSecret;
-
-    /**
-     * @var string
-     */
-    private $threeDMerchantAccountId;
 
     /**
      * @inheritDoc
