@@ -1,11 +1,19 @@
 <?php
 
 $basePath = dirname(dirname(__FILE__));
-require_once $basePath. "/vendor/autoload.php";
+require_once $basePath . "/vendor/autoload.php";
 
-$credentialFilePath = dirname(__FILE__) .DIRECTORY_SEPARATOR . "default_credentials.xml";
+$credentialFilePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . "default_credentials.xml";
 
-$module = new Credentials\Module($credentialFilePath);
+try {
+    $module = new Credentials\Module($credentialFilePath);
+} catch (Credentials\Exception\InvalidPaymentMethodException $e) {
+    $credentials = [];
+} catch (Credentials\Exception\InvalidXMLFormatException $e) {
+    $credentials = [];
+} catch (Credentials\Exception\MissedCredentialsException $e) {
+    $credentials = [];
+}
 $credentials = $module->getCredentials();
 
 print_r("Credit Card Credentials\n");
