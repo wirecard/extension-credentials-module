@@ -5,14 +5,12 @@ namespace CredentialsReader;
 use CredentialsReader\Credentials\ConfigFactory;
 use CredentialsReader\Credentials\CreditCardConfig;
 use CredentialsReader\Credentials\DefaultConfig;
-use CredentialsReader\Exception\InvalidPaymentMethodException;
-use CredentialsReader\Reader\ReaderInterface;
 use CredentialsReader\Reader\XMLReader;
 
 class Module
 {
     /**
-     * @var ReaderInterface
+     * @var Reader\ReaderInterface
      */
     private $reader;
 
@@ -52,13 +50,13 @@ class Module
     /**
      * @param string $paymentMethod
      * @return DefaultConfig|CreditCardConfig
-     * @throws Exception\InvalidPaymentMethodException
      */
-    public function getCredentialsConfigByPaymentMethod($paymentMethod)
+    public function getCredentials($paymentMethod = null)
     {
-        if (!isset($this->credentialsConfigList[$paymentMethod])) {
-            throw new InvalidPaymentMethodException($paymentMethod);
+        $credentials = $this->credentialsConfigList;
+        if (isset($this->credentialsConfigList[$paymentMethod])) {
+            $credentials = $this->credentialsConfigList[$paymentMethod];
         }
-        return $this->credentialsConfigList[$paymentMethod];
+        return $credentials;
     }
 }

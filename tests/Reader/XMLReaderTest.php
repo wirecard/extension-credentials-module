@@ -4,6 +4,8 @@ namespace CredentialsReaderTest\Reader;
 
 use CredentialsReader\Reader\XMLReader;
 use PHPUnit\Framework\TestCase;
+use Generator;
+use PHPUnit_Framework_MockObject_MockObject;
 
 /**
  * Class XMLReaderTest
@@ -13,20 +15,19 @@ use PHPUnit\Framework\TestCase;
 class XMLReaderTest extends TestCase
 {
     /**
-     * @return \Generator
+     * @return Generator
      */
     public function plainXMLDataProvider()
     {
         yield "test_xml_sample_one_node" => [
-            "<?xml version=\"1.0\" encoding=\"utf-8\"?>
-                <config xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
-                >
+            '<?xml version="1.0" encoding="utf-8"?>
+                <config>
                     <creditcard>
                         <merchant_account_id>a1-d2-c3-d4</merchant_account_id>
                         <base_url>https://api.wirecard.com</base_url>
                     </creditcard>
                 </config>
-            ",
+            ',
 
             [
                 "creditcard" => [
@@ -35,9 +36,8 @@ class XMLReaderTest extends TestCase
                 ]
             ]];
         yield "test_xml_sample_two_node" => [
-            "<?xml version=\"1.0\" encoding=\"utf-8\"?>
-                <config xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
-                >
+            '<?xml version="1.0" encoding="utf-8"?>
+                <config>
                     <creditcard>
                         <merchant_account_id>merchant_account_id</merchant_account_id>
                         <secret>secret</secret>
@@ -56,7 +56,7 @@ class XMLReaderTest extends TestCase
                         <http_pass>password</http_pass>
                     </paypal>
                 </config>
-            ",
+            ',
 
             [
                 "creditcard" => [
@@ -90,7 +90,7 @@ class XMLReaderTest extends TestCase
      */
     public function testCredentials($data, $expectedResult)
     {
-        /** @var XMLReader | \PHPUnit_Framework_MockObject_MockObject $reader */
+        /** @var XMLReader | PHPUnit_Framework_MockObject_MockObject $reader */
         $reader = $this->getMockBuilder(XMLReader::class)
             ->setMethods(['getRawXML'])->disableOriginalConstructor()->getMock();
         $reader->expects($this->any())->method('getRawXML')->willReturn($data);
@@ -100,8 +100,8 @@ class XMLReaderTest extends TestCase
 
     public function testValidate()
     {
-        $testXMLString = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
-                <config xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+        $testXMLString = '<?xml version="1.0" encoding="utf-8"?>
+                <config 
                 >
                     <creditcard>
                         <merchant_account_id>merchant_account_id</merchant_account_id>
@@ -121,8 +121,8 @@ class XMLReaderTest extends TestCase
                         <http_pass>password</http_pass>
                     </paypal>
                 </config>
-            ";
-        /** @var XMLReader | \PHPUnit_Framework_MockObject_MockObject $reader */
+            ';
+        /** @var XMLReader | PHPUnit_Framework_MockObject_MockObject $reader */
         $reader = $this->getMockBuilder(XMLReader::class)
             ->setMethods(['getRawXML'])->disableOriginalConstructor()->getMock();
         $reader->expects($this->any())->method('getRawXML')->willReturn($testXMLString);

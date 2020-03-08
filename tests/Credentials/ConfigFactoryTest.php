@@ -9,6 +9,7 @@ use CredentialsReader\Credentials\DefaultConfig;
 use CredentialsReader\Exception\MissedCredentialsException;
 use CredentialsReader\Exception\InvalidPaymentMethodException;
 use PHPUnit\Framework\TestCase;
+use Generator;
 
 /**
  * Class XMLReaderTest
@@ -34,40 +35,69 @@ class CreditCardConfigTest extends TestCase
         $factory->createConfig("InvalidType", []);
     }
 
+
     /**
-     * @group unit
-     * @small
-     * @covers ::createConfig
-     * @throws InvalidPaymentMethodException
-     * @throws MissedCredentialsException
+     * @return array
      */
-    public function testCreateConfig()
+    public function getDefaultConfigCredentials()
     {
-        $factory = new ConfigFactory();
-        $credentials = [
+        return [
+            CreditCardConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
+            CreditCardConfig::ATTRIBUTE_BASE_URL => "https://api.wirecard.com",
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getCreditCardConfigCredentials()
+    {
+        return [
             CreditCardConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
             CreditCardConfig::ATTRIBUTE_BASE_URL => "https://api.wirecard.com",
             CreditCardConfig::ATTRIBUTE_WPP_URL => "https://wpp.wirecard.com",
             CreditCardConfig::ATTRIBUTE_3D_SECRET => "topSecret",
             CreditCardConfig::ATTRIBUTE_3D_MERCHANT_ACCOUNT_ID => "123456",
         ];
-        $creditCardConfig = $factory->createConfig(
+    }
+
+    /**
+     * @return Generator
+     */
+    public function createConfigDataProvider()
+    {
+
+        yield "create credit card config" => [
             PaymentMethod::TYPE_CREDIT_CARD,
-            $credentials
-        );
-        $this->assertInstanceOf(CreditCardConfig::class, $creditCardConfig);
-
-        $credentials = [
-            CreditCardConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
-            CreditCardConfig::ATTRIBUTE_BASE_URL => "https://api.wirecard.com",
+            $this->getCreditCardConfigCredentials(),
+            CreditCardConfig::class
         ];
-
-        $creditCardConfig = $factory->createConfig(
+        yield "create default config" => [
             PaymentMethod::TYPE_PAYPAL,
+            $this->getDefaultConfigCredentials(),
+            DefaultConfig::class
+        ];
+    }
+
+    /**
+     * @group unit
+     * @small
+     * @covers ::createConfig
+     * @dataProvider createConfigDataProvider
+     * @param string $type
+     * @param array $credentials
+     * @param string $configClass
+     * @throws InvalidPaymentMethodException
+     * @throws MissedCredentialsException
+     */
+    public function testCreateConfig($type, $credentials, $configClass)
+    {
+        $factory = new ConfigFactory();
+        $config = $factory->createConfig(
+            $type,
             $credentials
         );
-
-        $this->assertInstanceOf(DefaultConfig::class, $creditCardConfig);
+        $this->assertInstanceOf($configClass, $config);
     }
 
     /**
@@ -80,24 +110,15 @@ class CreditCardConfigTest extends TestCase
     public function testCreateConfigList()
     {
         $factory = new ConfigFactory();
-        $creditCardCredentials = [
-            CreditCardConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
-            CreditCardConfig::ATTRIBUTE_BASE_URL => "https://api.wirecard.com",
-            CreditCardConfig::ATTRIBUTE_WPP_URL => "https://wpp.wirecard.com",
-            CreditCardConfig::ATTRIBUTE_3D_SECRET => "topSecret",
-            CreditCardConfig::ATTRIBUTE_3D_MERCHANT_ACCOUNT_ID => "123456",
-        ];
-
-        $paypalCredentials = [
-            CreditCardConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
-            CreditCardConfig::ATTRIBUTE_BASE_URL => "https://api.wirecard.com",
-        ];
 
         $result = $factory->createConfigList([
-            PaymentMethod::TYPE_CREDIT_CARD => $creditCardCredentials,
-            PaymentMethod::TYPE_PAYPAL => $paypalCredentials,
+            PaymentMethod::TYPE_CREDIT_CARD => $this->getCreditCardConfigCredentials(),
+            PaymentMethod::TYPE_PAYPAL => $this->getDefaultConfigCredentials(),
         ]);
 
+        $this->assertTrue(is_array($result));
+        $this->assertNotEmpty(is_array($result));
+        $this->assertCount(2, $result);
         $this->assertArrayHasKey(PaymentMethod::TYPE_CREDIT_CARD, $result);
         $this->assertArrayHasKey(PaymentMethod::TYPE_PAYPAL, $result);
     }

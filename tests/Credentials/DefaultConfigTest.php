@@ -16,7 +16,7 @@ class DefaultConfigTest extends TestCase
     /**
      * @group unit
      * @small
-     * @throws \CredentialsReader\Exception\MissedCredentialsException
+     * @throws MissedCredentialsException
      */
     public function testConstructor()
     {
@@ -31,6 +31,6 @@ class DefaultConfigTest extends TestCase
             $defaultConfig->getMerchantAccountId()
         );
         $this->expectException(MissedCredentialsException::class);
-        $defaultConfig = new DefaultConfig([]);
+        new DefaultConfig([]);
     }
 }
