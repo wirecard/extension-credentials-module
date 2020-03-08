@@ -17,17 +17,21 @@ try {
 $credentials = $module->getCredentials();
 
 print_r("Credit Card Credentials\n");
-/** @var Credentials\Config\CreditCardConfig $creditCardCredentialsConfig */
-$creditCardCredentialsConfig = $credentials['creditcard'];
-print_r($creditCardCredentialsConfig->getThreeDMerchantAccountId() . PHP_EOL);
-print_r($creditCardCredentialsConfig->getThreeDSecret() . PHP_EOL);
-print_r($creditCardCredentialsConfig->getWppUrl() . PHP_EOL);
+if ($credentials['creditcard']) {
+    /** @var Credentials\Config\CreditCardConfig $creditCardCredentialsConfig */
+    $creditCardCredentialsConfig = $credentials['creditcard'];
+    print_r($creditCardCredentialsConfig->getThreeDMerchantAccountId() . PHP_EOL);
+    print_r($creditCardCredentialsConfig->getThreeDSecret() . PHP_EOL);
+    print_r($creditCardCredentialsConfig->getWppUrl() . PHP_EOL);
+}
 
 print_r("Paypal Card Credentials\n");
-/** @var Credentials\Config\DefaultConfig $paypalCredentialsConfig */
-$paypalCredentialsConfig = $credentials['paypal'];
-print_r($paypalCredentialsConfig->getMerchantAccountId() . PHP_EOL);
-print_r($paypalCredentialsConfig->getBaseUrl() . PHP_EOL);
+if ($credentials['paypal']) {
+    /** @var Credentials\Config\DefaultConfig $paypalCredentialsConfig */
+    $paypalCredentialsConfig = $credentials['paypal'];
+    print_r($paypalCredentialsConfig->getMerchantAccountId() . PHP_EOL);
+    print_r($paypalCredentialsConfig->getBaseUrl() . PHP_EOL);
+}
 
 print_r("Iterate Credentials\n");
 foreach ($credentials as $paymentMethod => $credentialsConfig) {
