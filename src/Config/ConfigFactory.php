@@ -1,10 +1,10 @@
 <?php
 
-namespace CredentialsReader\Credentials;
+namespace Credentials\Config;
 
-use CredentialsReader\Constants\PaymentMethod;
-use CredentialsReader\Exception\InvalidPaymentMethodException;
-use CredentialsReader\Exception\MissedCredentialsException;
+use Credentials\Constants\PaymentMethod;
+use Credentials\Exception\InvalidPaymentMethodException;
+use Credentials\Exception\MissedCredentialsException;
 
 class ConfigFactory
 {

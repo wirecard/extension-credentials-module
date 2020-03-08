@@ -1,11 +1,11 @@
 <?php
 
-namespace CredentialsReader;
+namespace Credentials;
 
-use CredentialsReader\Credentials\ConfigFactory;
-use CredentialsReader\Credentials\CreditCardConfig;
-use CredentialsReader\Credentials\DefaultConfig;
-use CredentialsReader\Reader\XMLReader;
+use Credentials\Config\ConfigFactory;
+use Credentials\Config\CreditCardConfig;
+use Credentials\Config\DefaultConfig;
+use Credentials\Reader\XMLReader;
 
 class Module
 {
@@ -33,23 +33,21 @@ class Module
     }
 
     /**
-     * @return array
+     * @return Module
      * @throws Exception\InvalidPaymentMethodException
      * @throws Exception\MissedCredentialsException
      */
     private function loadCredentialsConfig()
     {
-        if (is_null($this->credentialsConfigList)) {
-            $this->credentialsConfigList = (new ConfigFactory())->createConfigList(
-                $this->reader->getCredentials()
-            );
-        }
-        return $this->credentialsConfigList;
+        $this->credentialsConfigList = (new ConfigFactory())->createConfigList(
+            $this->reader->getCredentials()
+        );
+        return $this;
     }
 
     /**
      * @param string $paymentMethod
-     * @return DefaultConfig|CreditCardConfig
+     * @return DefaultConfig|CreditCardConfig|DefaultConfig[]
      */
     public function getCredentials($paymentMethod = null)
     {

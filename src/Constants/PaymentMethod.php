@@ -1,6 +1,6 @@
 <?php
 
-namespace CredentialsReader\Constants;
+namespace Credentials\Constants;
 
 class PaymentMethod
 {

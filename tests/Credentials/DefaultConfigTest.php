@@ -1,15 +1,15 @@
 <?php
 
-namespace CredentialsReaderTest\Reader;
+namespace CredentialsTest\Reader;
 
-use CredentialsReader\Credentials\DefaultConfig;
-use CredentialsReader\Exception\MissedCredentialsException;
+use Credentials\Config\DefaultConfig;
+use Credentials\Exception\MissedCredentialsException;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class XMLReaderTest
  * @package CredentialsReaderTest\Reader
- * @coversDefaultClass \CredentialsReader\Credentials\DefaultConfig
+ * @coversDefaultClass \Credentials\Config\DefaultConfig
  */
 class DefaultConfigTest extends TestCase
 {

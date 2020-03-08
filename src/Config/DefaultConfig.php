@@ -1,8 +1,8 @@
 <?php
 
-namespace CredentialsReader\Credentials;
+namespace Credentials\Config;
 
-use CredentialsReader\Exception\MissedCredentialsException;
+use Credentials\Exception\MissedCredentialsException;
 
 class DefaultConfig
 {

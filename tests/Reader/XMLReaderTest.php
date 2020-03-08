@@ -2,7 +2,7 @@
 
 namespace CredentialsReaderTest\Reader;
 
-use CredentialsReader\Reader\XMLReader;
+use Credentials\Reader\XMLReader;
 use PHPUnit\Framework\TestCase;
 use Generator;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -10,7 +10,7 @@ use PHPUnit_Framework_MockObject_MockObject;
 /**
  * Class XMLReaderTest
  * @package CredentialsReaderTest\Reader
- * @coversDefaultClass \CredentialsReader\Reader\XMLReader
+ * @coversDefaultClass \Credentials\Reader\XMLReader
  */
 class XMLReaderTest extends TestCase
 {

@@ -1,20 +1,20 @@
 <?php
 
-namespace CredentialsReaderTest\Credentials;
+namespace CredentialsTest\Credentials;
 
-use CredentialsReader\Constants\PaymentMethod;
-use CredentialsReader\Credentials\ConfigFactory;
-use CredentialsReader\Credentials\CreditCardConfig;
-use CredentialsReader\Credentials\DefaultConfig;
-use CredentialsReader\Exception\MissedCredentialsException;
-use CredentialsReader\Exception\InvalidPaymentMethodException;
+use Credentials\Constants\PaymentMethod;
+use Credentials\Config\ConfigFactory;
+use Credentials\Config\CreditCardConfig;
+use Credentials\Config\DefaultConfig;
+use Credentials\Exception\MissedCredentialsException;
+use Credentials\Exception\InvalidPaymentMethodException;
 use PHPUnit\Framework\TestCase;
 use Generator;
 
 /**
  * Class XMLReaderTest
  * @package CredentialsReaderTest\Reader
- * @coversDefaultClass \CredentialsReader\Credentials\ConfigFactory
+ * @coversDefaultClass \Credentials\Config\ConfigFactory
  */
 class CreditCardConfigTest extends TestCase
 {

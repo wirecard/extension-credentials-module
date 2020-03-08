@@ -1,6 +1,6 @@
 <?php
 
-namespace CredentialsReader\Reader;
+namespace Credentials\Reader;
 
 interface ReaderInterface
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace CredentialsReaderTest\Reader;
+namespace CredentialsTest\Reader;
 
-use CredentialsReader\Credentials\CreditCardConfig;
-use CredentialsReader\Exception\MissedCredentialsException;
+use Credentials\Config\CreditCardConfig;
+use Credentials\Exception\MissedCredentialsException;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class XMLReaderTest
  * @package CredentialsReaderTest\Reader
- * @coversDefaultClass \CredentialsReader\Credentials\CreditCardConfig
+ * @coversDefaultClass \Credentials\Config\CreditCardConfig
  */
 class CreditCardConfigTest extends TestCase
 {

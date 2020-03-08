@@ -1,6 +1,6 @@
 <?php
 
-namespace CredentialsReader\Exception;
+namespace Credentials\Exception;
 
 use Exception;
 use Throwable;

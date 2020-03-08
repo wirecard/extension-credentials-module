@@ -1,6 +1,6 @@
 <?php
 
-namespace CredentialsReader\Credentials;
+namespace Credentials\Config;
 
 class CreditCardConfig extends DefaultConfig
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace CredentialsReader\Reader;
+namespace Credentials\Reader;
 
 use DOMDocument;
-use CredentialsReader\Exception\InvalidXMLFormatException;
+use Credentials\Exception\InvalidXMLFormatException;
 
 class XMLReader implements ReaderInterface
 {
