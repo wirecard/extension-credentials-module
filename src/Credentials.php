@@ -45,10 +45,6 @@ class Credentials
             $this->getPaymentMethodRegistry()
         );
         $this->loadCredentialsConfig();
-        echo "<pre>";
-        print_r($this);
-        echo "</pre>";
-        die;
     }
 
     /**
