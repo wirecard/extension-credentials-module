@@ -3,7 +3,7 @@
 
 namespace CredentialsTest\Exception;
 
-use Credentials\Constants\PaymentMethodRegistry;
+use Credentials\PaymentMethodRegistry;
 use PHPUnit\Framework\TestCase;
 use Credentials\Exception\InvalidPaymentMethodException;
 

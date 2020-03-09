@@ -25,6 +25,12 @@ class Credentials
      */
     private $credentialsConfig = [];
 
+
+    /**
+     * @var PaymentMethodRegistry
+     */
+    private $paymentMethodRegistry;
+
     /**
      * Credentials constructor.
      * @param string $credentialsFilePath
@@ -35,6 +41,7 @@ class Credentials
      */
     public function __construct($credentialsFilePath)
     {
+        $this->paymentMethodRegistry = new PaymentMethodRegistry();
         $this->reader = new XMLReader(file_get_contents($credentialsFilePath));
         $this->loadCredentialsConfig();
     }
@@ -63,16 +70,12 @@ class Credentials
     }
 
     /**
-     * @param string $paymentMethod
+     * @param PaymentMethod | string $paymentMethod
      * @return CredentialsConfigInterface|CredentialsCreditCardConfigInterface
-     * @throws InvalidPaymentMethodException
      * @since 1.0.0
      */
-    public function getCredentialsByPaymentMethod($paymentMethod)
+    public function getCredentialsByPaymentMethod(PaymentMethod $paymentMethod)
     {
-        if (!isset($this->credentialsConfig[$paymentMethod])) {
-            throw new InvalidPaymentMethodException($paymentMethod);
-        }
         return $this->credentialsConfig[$paymentMethod];
     }
 

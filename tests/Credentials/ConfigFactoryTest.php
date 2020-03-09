@@ -4,7 +4,7 @@ namespace CredentialsTest\Credentials;
 
 use Credentials\Config\CredentialsConfigInterface;
 use Credentials\Config\CredentialsCreditCardConfigInterface;
-use Credentials\Constants\PaymentMethodRegistry;
+use Credentials\PaymentMethodRegistry;
 use Credentials\Config\ConfigFactory;
 use Credentials\Config\CreditCardConfig;
 use Credentials\Config\DefaultConfig;

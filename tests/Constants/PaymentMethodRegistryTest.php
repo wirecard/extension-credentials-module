@@ -2,14 +2,14 @@
 
 namespace CredentialsTest\Constants;
 
-use Credentials\Constants\PaymentMethodRegistry;
+use Credentials\PaymentMethodRegistry;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class XMLReaderTest
  * @package CredentialsTest\Constants
- * @coversDefaultClass \Credentials\Constants\PaymentMethodRegistry
+ * @coversDefaultClass \Credentials\PaymentMethodRegistry
  * @SuppressWarnings(PHPMD.LongVariable)
  * @since 1.0.0
  */

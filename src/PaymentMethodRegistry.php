@@ -1,10 +1,10 @@
 <?php
 
-namespace Credentials\Constants;
+namespace Credentials;
 
 /**
  * Class PaymentMethodRegistry
- * @package Credentials\Constants
+ * @package Credentials
  * @since 1.0.0
  */
 class PaymentMethodRegistry
@@ -61,6 +61,21 @@ class PaymentMethodRegistry
      * @var string
      */
     const TYPE_MASTERPASS = "masterpass";
+
+    private $registry = [];
+
+    /**
+     * @param $method
+     * @return PaymentMethod
+     * @throws Exception\InvalidPaymentMethodException
+     */
+    public function getPaymentMethod($method)
+    {
+        if (!$this->registry[$method]) {
+            $this->registry[$method] = new PaymentMethod($method, $this);
+        }
+        return $this->registry[$method];
+    }
 
     /**
      * @return array

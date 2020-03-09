@@ -2,6 +2,9 @@
 
 namespace Credentials\Reader;
 
+use Credentials\Exception\InvalidPaymentMethodException;
+use Credentials\PaymentMethod;
+use Credentials\PaymentMethodRegistry;
 use DOMDocument;
 use Credentials\Exception\InvalidXMLFormatException;
 use Exception;
@@ -23,14 +26,22 @@ class XMLReader implements ReaderInterface
      */
     private $rawXML;
 
+
+    /**
+     * @var PaymentMethodRegistry
+     */
+    private $paymentMethodRegistry;
+
     /**
      * XMLReader constructor.
      * @param string $data
+     * @param PaymentMethodRegistry $registry
      * @throws InvalidXMLFormatException
      * @since 1.0.0
      */
-    public function __construct($data)
+    public function __construct($data, PaymentMethodRegistry $registry)
     {
+        $this->paymentMethodRegistry = $registry;
         $this->rawXML = $data;
         try {
             if (!$this->validate()) {
@@ -76,6 +87,7 @@ class XMLReader implements ReaderInterface
 
 
     /**
+     * @throws InvalidPaymentMethodException
      * @since 1.0.0
      */
     public function toArray()
@@ -83,7 +95,8 @@ class XMLReader implements ReaderInterface
         $credentials = [];
         $xml = (array)simplexml_load_string($this->getRawXML());
         foreach ($xml as $paymentMethod => $credentialItem) {
-            $credentials[$paymentMethod] = (array)$credentialItem;
+            $credentials[(string)$this->paymentMethodRegistry->getPaymentMethod($paymentMethod)]
+                = (array)$credentialItem;
         }
 
         return $credentials;

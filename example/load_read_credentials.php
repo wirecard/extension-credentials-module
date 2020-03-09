@@ -23,14 +23,14 @@ try {
 try {
     print_r("Paypal Card Credentials\n");
     if ($paypal = $module->getCredentialsByPaymentMethod(
-        Credentials\Constants\PaymentMethodRegistry::TYPE_PAYPAL
+        Credentials\PaymentMethodRegistry::TYPE_PAYPAL
     )) {
         print_r($paypal->getMerchantAccountId() . PHP_EOL);
         print_r($paypal->getBaseUrl() . PHP_EOL);
     }
     print_r("Credit Card Credentials\n");
     if ($creditCard = $module->getCredentialsByPaymentMethod(
-        Credentials\Constants\PaymentMethodRegistry::TYPE_CREDIT_CARD
+        Credentials\PaymentMethodRegistry::TYPE_CREDIT_CARD
     )) {
         print_r($creditCard->getThreeDMerchantAccountId() . PHP_EOL);
         print_r($creditCard->getThreeDSecret() . PHP_EOL);
@@ -59,11 +59,11 @@ try {
 }
 
 $credentialsConfigFactory = new Credentials\Config\ConfigFactory();
-if ($credentials[Credentials\Constants\PaymentMethodRegistry::TYPE_CREDIT_CARD]) {
+if ($credentials[Credentials\PaymentMethodRegistry::TYPE_CREDIT_CARD]) {
     try {
         $creditCardConfig = $credentialsConfigFactory->createConfig(
-            Credentials\Constants\PaymentMethodRegistry::TYPE_CREDIT_CARD,
-            $credentials[Credentials\Constants\PaymentMethodRegistry::TYPE_CREDIT_CARD]
+            Credentials\PaymentMethodRegistry::TYPE_CREDIT_CARD,
+            $credentials[Credentials\PaymentMethodRegistry::TYPE_CREDIT_CARD]
         );
         print_r("CreditCard => " . $creditCardConfig->getWppUrl() . PHP_EOL);
         print_r("CreditCard => " . $creditCardConfig->getThreeDMerchantAccountId() . PHP_EOL);
@@ -77,11 +77,11 @@ if ($credentials[Credentials\Constants\PaymentMethodRegistry::TYPE_CREDIT_CARD])
     }
 }
 
-if ($credentials[Credentials\Constants\PaymentMethodRegistry::TYPE_PAYPAL]) {
+if ($credentials[Credentials\PaymentMethodRegistry::TYPE_PAYPAL]) {
     try {
         $defaultConfig = $credentialsConfigFactory->createConfig(
-            Credentials\Constants\PaymentMethodRegistry::TYPE_PAYPAL,
-            $credentials[Credentials\Constants\PaymentMethodRegistry::TYPE_PAYPAL]
+            Credentials\PaymentMethodRegistry::TYPE_PAYPAL,
+            $credentials[Credentials\PaymentMethodRegistry::TYPE_PAYPAL]
         );
         print_r("Paypal => " . $defaultConfig->getBaseUrl() . PHP_EOL);
         print_r("Paypal => " . $defaultConfig->getMerchantAccountId() . PHP_EOL);
