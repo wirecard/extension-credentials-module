@@ -6,6 +6,7 @@ namespace Credentials\Config;
  * Class CreditCardConfig
  * @package Credentials\Config
  * @SuppressWarnings(PHPMD.LongVariable)
+ * @since 1.0.0
  */
 class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardConfigInterface
 {
@@ -75,7 +76,7 @@ class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardCon
     }
 
     /**
-     * @param array $credentials
+     * @inheritDoc
      */
     protected function loadFromCredentials(array $credentials)
     {

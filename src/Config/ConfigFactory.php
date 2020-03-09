@@ -10,6 +10,7 @@ use Credentials\Exception\MissedCredentialsException;
  * Class ConfigFactory
  * @package Credentials\Config
  * @SuppressWarnings(PHPMD.LongVariable)
+ * @since 1.0.0
  */
 class ConfigFactory
 {
@@ -20,6 +21,7 @@ class ConfigFactory
 
     /**
      * @return array
+     * @since 1.0.0
      */
     protected function getAvailablePaymentMethods()
     {
@@ -31,11 +33,12 @@ class ConfigFactory
     }
 
     /**
-     * @param $paymentMethod
+     * @param string $paymentMethod
      * @param array $credentials
      * @return DefaultConfig|CreditCardConfig
      * @throws InvalidPaymentMethodException
      * @throws MissedCredentialsException
+     * @since 1.0.0
      */
     public function createConfig($paymentMethod, array $credentials)
     {
@@ -55,6 +58,7 @@ class ConfigFactory
      * @return array
      * @throws InvalidPaymentMethodException
      * @throws MissedCredentialsException
+     * @since 1.0.0
      */
     public function createConfigList(array $credentials)
     {

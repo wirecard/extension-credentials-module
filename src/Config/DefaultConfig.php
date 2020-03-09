@@ -7,6 +7,7 @@ use Credentials\Exception\MissedCredentialsException;
 /**
  * Class DefaultConfig
  * @package Credentials\Config
+ * @since 1.0.0
  */
 class DefaultConfig implements CredentialsConfigInterface
 {
@@ -64,6 +65,7 @@ class DefaultConfig implements CredentialsConfigInterface
      * BaseConfig constructor.
      * @param array $credentials
      * @throws MissedCredentialsException
+     * @since 1.0.0
      */
     public function __construct(array $credentials)
     {
@@ -116,6 +118,7 @@ class DefaultConfig implements CredentialsConfigInterface
 
     /**
      * @return array
+     * @since 1.0.0
      */
     protected function requiredAttributeList()
     {
@@ -130,6 +133,7 @@ class DefaultConfig implements CredentialsConfigInterface
 
     /**
      * @param array $credentials
+     * @since 1.0.0
      */
     protected function loadFromCredentials(array $credentials)
     {

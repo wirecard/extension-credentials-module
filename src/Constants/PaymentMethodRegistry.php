@@ -5,6 +5,7 @@ namespace Credentials\Constants;
 /**
  * Class PaymentMethodRegistry
  * @package Credentials\Constants
+ * @since 1.0.0
  */
 class PaymentMethodRegistry
 {
@@ -24,6 +25,7 @@ class PaymentMethodRegistry
 
     /**
      * @return array
+     * @since 1.0.0
      */
     public function availablePaymentMethods()
     {

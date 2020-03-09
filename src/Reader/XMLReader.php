@@ -33,6 +33,7 @@ class XMLReader implements ReaderInterface
 
     /**
      * @return string
+     * @since 1.0.0
      */
     public function getRawXML()
     {
@@ -41,6 +42,7 @@ class XMLReader implements ReaderInterface
 
     /**
      * @return string
+     * @since 1.0.0
      */
     protected function getXMLSchemaPath()
     {

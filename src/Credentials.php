@@ -21,11 +21,12 @@ class Credentials
     private $credentialsConfig = [];
 
     /**
-     * App constructor.
-     * @param $credentialsFilePath
+     * Credentials constructor.
+     * @param string $credentialsFilePath
      * @throws Exception\InvalidXMLFormatException
      * @throws Exception\InvalidPaymentMethodException
      * @throws Exception\MissedCredentialsException
+     * @since 1.0.0
      */
     public function __construct($credentialsFilePath)
     {
@@ -34,17 +35,10 @@ class Credentials
     }
 
     /**
-     * @return Reader\ReaderInterface
-     */
-    public function getReader()
-    {
-        return $this->reader;
-    }
-
-    /**
      * @return Credentials
      * @throws Exception\InvalidPaymentMethodException
      * @throws Exception\MissedCredentialsException
+     * @since 1.0.0
      */
     private function loadCredentialsConfig()
     {
@@ -55,9 +49,19 @@ class Credentials
     }
 
     /**
+     * @return Reader\ReaderInterface
+     * @since 1.0.0
+     */
+    public function getReader()
+    {
+        return $this->reader;
+    }
+
+    /**
      * @param string $paymentMethod
      * @return CredentialsConfigInterface|CredentialsCreditCardConfigInterface
      * @throws InvalidPaymentMethodException
+     * @since 1.0.0
      */
     public function getCredentialsByPaymentMethod($paymentMethod)
     {
@@ -69,6 +73,7 @@ class Credentials
 
     /**
      * @return array|CredentialsConfigInterface[]|CredentialsCreditCardConfigInterface[]
+     * @since 1.0.0
      */
     public function getCredentials()
     {
