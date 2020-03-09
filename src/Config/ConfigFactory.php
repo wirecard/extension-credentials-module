@@ -13,16 +13,32 @@ use Credentials\Exception\MissedCredentialsException;
 class ConfigFactory
 {
     /**
+     * @var array
+     */
+    private $availablePaymentMethods = [];
+
+    /**
+     * @return array
+     */
+    protected function getAvailablePaymentMethods()
+    {
+        if (empty($this->availablePaymentMethods)) {
+            $paymentMethodRegistry = new PaymentMethodRegistry();
+            $this->availablePaymentMethods = $paymentMethodRegistry->availablePaymentMethods();
+        }
+        return $this->availablePaymentMethods;
+    }
+
+    /**
      * @param $paymentMethod
      * @param array $credentials
      * @return DefaultConfig|CreditCardConfig
      * @throws InvalidPaymentMethodException
      * @throws MissedCredentialsException
-     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function createConfig($paymentMethod, array $credentials)
     {
-        if (!in_array($paymentMethod, (new PaymentMethodRegistry())->availablePaymentMethods())) {
+        if (!in_array($paymentMethod, $this->getAvailablePaymentMethods())) {
             throw new InvalidPaymentMethodException($paymentMethod);
         }
 
