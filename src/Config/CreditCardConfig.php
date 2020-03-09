@@ -50,6 +50,7 @@ class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardCon
 
     /**
      * @inheritDoc
+     * @SuppressWarnings(PHPMD.LongVariable)
      */
     public function getThreeDMerchantAccountId()
     {

@@ -14,6 +14,7 @@ class ConfigFactory
      * @return DefaultConfig|CreditCardConfig
      * @throws InvalidPaymentMethodException
      * @throws MissedCredentialsException
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function createConfig($paymentMethod, array $credentials)
     {

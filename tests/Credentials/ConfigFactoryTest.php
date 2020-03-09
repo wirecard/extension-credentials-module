@@ -68,6 +68,7 @@ class CreditCardConfigTest extends TestCase
 
     /**
      * @return Generator
+     * @SuppressWarnings(PHPMD.LongVariable)
      */
     public function createConfigDataProvider()
     {
