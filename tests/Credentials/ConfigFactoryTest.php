@@ -2,6 +2,8 @@
 
 namespace CredentialsTest\Credentials;
 
+use Credentials\Config\CredentialsConfigInterface;
+use Credentials\Config\CredentialsCreditCardConfigInterface;
 use Credentials\Constants\PaymentMethod;
 use Credentials\Config\ConfigFactory;
 use Credentials\Config\CreditCardConfig;
@@ -55,7 +57,7 @@ class CreditCardConfigTest extends TestCase
      */
     public function getCreditCardConfigCredentials()
     {
-        $creditCardCredentials =  [
+        $creditCardCredentials = [
             CreditCardConfig::ATTRIBUTE_WPP_URL => "https://wpp.wirecard.com",
             CreditCardConfig::ATTRIBUTE_3D_SECRET => "topSecret",
             CreditCardConfig::ATTRIBUTE_3D_MERCHANT_ACCOUNT_ID => "123456",
@@ -69,17 +71,23 @@ class CreditCardConfigTest extends TestCase
      */
     public function createConfigDataProvider()
     {
-
         yield "create credit card config" => [
             PaymentMethod::TYPE_CREDIT_CARD,
             $this->getCreditCardConfigCredentials(),
-            CreditCardConfig::class
+            CreditCardConfig::class,
+            CredentialsCreditCardConfigInterface::class
         ];
-        yield "create default config" => [
-            PaymentMethod::TYPE_PAYPAL,
-            $this->getDefaultConfigCredentials(),
-            DefaultConfig::class
-        ];
+
+        $availablePaymentMethodList = PaymentMethod::availablePaymentMethods();
+        array_shift($availablePaymentMethodList);
+        foreach ($availablePaymentMethodList as $paymentMethod) {
+            yield "create default config {$paymentMethod}" => [
+                PaymentMethod::TYPE_MASTERPASS,
+                $this->getDefaultConfigCredentials(),
+                DefaultConfig::class,
+                CredentialsConfigInterface::class
+            ];
+        }
     }
 
     /**
@@ -90,10 +98,11 @@ class CreditCardConfigTest extends TestCase
      * @param string $type
      * @param array $credentials
      * @param string $configClass
+     * @param string $configInterface
      * @throws InvalidPaymentMethodException
      * @throws MissedCredentialsException
      */
-    public function testCreateConfig($type, $credentials, $configClass)
+    public function testCreateConfig($type, $credentials, $configClass, $configInterface)
     {
         $factory = new ConfigFactory();
         $config = $factory->createConfig(
@@ -101,6 +110,7 @@ class CreditCardConfigTest extends TestCase
             $credentials
         );
         $this->assertInstanceOf($configClass, $config);
+        $this->assertInstanceOf($configInterface, $config);
     }
 
     /**

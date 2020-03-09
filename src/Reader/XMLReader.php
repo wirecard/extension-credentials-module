@@ -46,7 +46,7 @@ class XMLReader implements ReaderInterface
     {
         return sprintf(
             "%s/%s",
-            dirname(__FILE__),
+            dirname(__DIR__, 2),
             self::XML_SCHEMA_FILE_NAME
         );
     }
@@ -59,9 +59,7 @@ class XMLReader implements ReaderInterface
     {
         $dom = new DOMDocument();
         $dom->loadXML($this->getRawXML());
-        //return $dom->schemaValidate($this->getXMLSchemaPath());
-        // todo: add validation and unit pass tests
-        return true;
+        return $dom->schemaValidate($this->getXMLSchemaPath());
     }
 
 
