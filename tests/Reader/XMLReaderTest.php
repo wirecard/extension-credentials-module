@@ -2,6 +2,7 @@
 
 namespace CredentialsReaderTest\Reader;
 
+use Credentials\Exception\InvalidXMLFormatException;
 use Credentials\Reader\XMLReader;
 use PHPUnit\Framework\TestCase;
 use Generator;
@@ -97,6 +98,9 @@ class XMLReaderTest extends TestCase
         $this->assertEquals($expectedResult, $reader->toArray());
     }
 
+    /**
+     * @throws InvalidXMLFormatException
+     */
     public function testValidate()
     {
         $testXMLString = '<?xml version="1.0" encoding="utf-8"?>
@@ -122,9 +126,12 @@ class XMLReaderTest extends TestCase
                 </config>
             ';
         /** @var XMLReader | PHPUnit_Framework_MockObject_MockObject $reader */
-        $reader = $this->getMockBuilder(XMLReader::class)
-            ->setMethods(['getRawXML'])->disableOriginalConstructor()->getMock();
-        $reader->expects($this->any())->method('getRawXML')->willReturn($testXMLString);
-        $this->assertEquals(true, $reader->validate());
+        new XMLReader($testXMLString);
+        new XMLReader('<?xml version="1.0" encoding="utf-8"?><config/>');
+        $this->expectException(InvalidXMLFormatException::class);
+        new XMLReader('<?xml version="1.0" encoding="utf-8"?><config><invalid_payment_type>
+                            </invalid_payment_type></config>');
+        $this->expectException(InvalidXMLFormatException::class);
+        new XMLReader('<?xml version="1.0" encoding="utf-8"?><configs></configs>');
     }
 }

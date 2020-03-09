@@ -23,7 +23,7 @@ class ConfigFactory
      * @return array
      * @since 1.0.0
      */
-    protected function getAvailablePaymentMethods()
+    private function getAvailablePaymentMethods()
     {
         if (empty($this->availablePaymentMethods)) {
             $paymentMethodRegistry = new PaymentMethodRegistry();

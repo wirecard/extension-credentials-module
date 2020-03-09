@@ -4,6 +4,7 @@ namespace Credentials\Reader;
 
 use DOMDocument;
 use Credentials\Exception\InvalidXMLFormatException;
+use Exception;
 
 /**
  * Class XMLReader
@@ -31,8 +32,12 @@ class XMLReader implements ReaderInterface
     public function __construct($data)
     {
         $this->rawXML = $data;
-        if (!$this->validate()) {
-            throw new InvalidXMLFormatException();
+        try {
+            if (!$this->validate()) {
+                throw new InvalidXMLFormatException();
+            }
+        } catch (Exception $ex) {
+            throw new InvalidXMLFormatException($ex->getMessage());
         }
     }
 
@@ -49,7 +54,7 @@ class XMLReader implements ReaderInterface
      * @return string
      * @since 1.0.0
      */
-    protected function getXMLSchemaPath()
+    private function getXMLSchemaPath()
     {
         return sprintf(
             "%s/%s",
@@ -62,7 +67,7 @@ class XMLReader implements ReaderInterface
      * Validate XML with XSD schema
      * @since 1.0.0
      */
-    public function validate()
+    private function validate()
     {
         $dom = new DOMDocument();
         $dom->loadXML($this->getRawXML());
