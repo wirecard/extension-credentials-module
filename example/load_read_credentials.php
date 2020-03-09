@@ -17,12 +17,16 @@ try {
 
 try {
     print_r("Paypal Card Credentials\n");
-    if ($paypal = $module->getCredentialsByPaymentMethod(Credentials\Constants\PaymentMethodRegistry::TYPE_PAYPAL)) {
+    if ($paypal = $module->getCredentialsByPaymentMethod(
+        Credentials\Constants\PaymentMethodRegistry::TYPE_PAYPAL
+    )) {
         print_r($paypal->getMerchantAccountId() . PHP_EOL);
         print_r($paypal->getBaseUrl() . PHP_EOL);
     }
     print_r("Credit Card Credentials\n");
-    if ($creditCard = $module->getCredentialsByPaymentMethod(Credentials\Constants\PaymentMethodRegistry::TYPE_CREDIT_CARD)) {
+    if ($creditCard = $module->getCredentialsByPaymentMethod(
+        Credentials\Constants\PaymentMethodRegistry::TYPE_CREDIT_CARD
+    )) {
         print_r($creditCard->getThreeDMerchantAccountId() . PHP_EOL);
         print_r($creditCard->getThreeDSecret() . PHP_EOL);
         print_r($creditCard->getWppUrl() . PHP_EOL);
