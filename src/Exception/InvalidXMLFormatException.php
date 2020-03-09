@@ -11,4 +11,8 @@ use Exception;
  */
 class InvalidXMLFormatException extends Exception
 {
+    /**
+     * @var string
+     */
+    protected $message = "Provided XML not conforms xsd schema rules!";
 }
