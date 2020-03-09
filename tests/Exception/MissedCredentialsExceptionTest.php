@@ -18,7 +18,7 @@ class MissedCredentialsExceptionTest extends TestCase
      * @small
      * @throws MissedCredentialsException
      */
-    public function testInvalidXMLFormatException()
+    public function testMissedCredentialsException()
     {
         $this->expectException(MissedCredentialsException::class);
         $this->expectExceptionMessage("Following fields: [X, Y, Z] are required!");
