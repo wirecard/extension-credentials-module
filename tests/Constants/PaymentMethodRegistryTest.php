@@ -19,19 +19,9 @@ class PaymentMethodRegistryTest extends TestCase
      */
     public function dataProviderAvailablePaymentMethods()
     {
-        yield [PaymentMethodRegistry::TYPE_CREDIT_CARD];
-        yield [PaymentMethodRegistry::TYPE_PAYPAL];
-        yield [PaymentMethodRegistry::TYPE_SOFORTBANKING];
-        yield [PaymentMethodRegistry::TYPE_ALIPAY_XBORDER];
-        yield [PaymentMethodRegistry::TYPE_IDEAL];
-        yield [PaymentMethodRegistry::TYPE_WIRETRANSFER];
-        yield [PaymentMethodRegistry::TYPE_RATEPAY];
-        yield [PaymentMethodRegistry::TYPE_EPS];
-        yield [PaymentMethodRegistry::TYPE_GIROPAY];
-        yield [PaymentMethodRegistry::TYPE_ZAPP];
-        yield [PaymentMethodRegistry::TYPE_SEPACREDIT];
-        yield [PaymentMethodRegistry::TYPE_SEPA_DIRECT_DEBIT];
-        yield [PaymentMethodRegistry::TYPE_MASTERPASS];
+        foreach ((new PaymentMethodRegistry())->availablePaymentMethods() as $paymentMethod) {
+            yield "Available payment method : {$paymentMethod}" => [$paymentMethod];
+        }
     }
 
     /**
