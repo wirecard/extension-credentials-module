@@ -9,6 +9,7 @@ use Credentials\Exception\MissedCredentialsException;
 /**
  * Class ConfigFactory
  * @package Credentials\Config
+ * @SuppressWarnings(PHPMD.LongVariable)
  */
 class ConfigFactory
 {
