@@ -2,7 +2,11 @@
 
 namespace Credentials\Constants;
 
-class PaymentMethod
+/**
+ * Class PaymentMethodRegistry
+ * @package Credentials\Constants
+ */
+class PaymentMethodRegistry
 {
     const TYPE_CREDIT_CARD = "creditcard";
     const TYPE_PAYPAL = "paypal";
@@ -21,7 +25,7 @@ class PaymentMethod
     /**
      * @return array
      */
-    public static function availablePaymentMethods()
+    public function availablePaymentMethods()
     {
         return [
             self::TYPE_CREDIT_CARD,

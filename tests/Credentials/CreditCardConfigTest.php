@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class XMLReaderTest
- * @package CredentialsReaderTest\Reader
+ * @package CredentialsTest\Reader
  * @coversDefaultClass \Credentials\Config\CreditCardConfig
  */
 class CreditCardConfigTest extends TestCase

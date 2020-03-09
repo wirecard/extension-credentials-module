@@ -2,6 +2,10 @@
 
 namespace Credentials\Config;
 
+/**
+ * Interface CredentialsConfigInterface
+ * @package Credentials\Config
+ */
 interface CredentialsConfigInterface
 {
     /**

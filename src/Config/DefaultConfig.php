@@ -4,6 +4,10 @@ namespace Credentials\Config;
 
 use Credentials\Exception\MissedCredentialsException;
 
+/**
+ * Class DefaultConfig
+ * @package Credentials\Config
+ */
 class DefaultConfig implements CredentialsConfigInterface
 {
     /**

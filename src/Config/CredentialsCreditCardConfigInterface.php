@@ -2,7 +2,11 @@
 
 namespace Credentials\Config;
 
-interface CredentialsCreditCardConfigInterface
+/**
+ * Interface CredentialsCreditCardConfigInterface
+ * @package Credentials\Config
+ */
+interface CredentialsCreditCardConfigInterface extends CredentialsConfigInterface
 {
     /**
      * @return string

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class XMLReaderTest
- * @package CredentialsReaderTest\Reader
+ * @package CredentialsTest\Reader
  * @coversDefaultClass \Credentials\Config\DefaultConfig
  */
 class DefaultConfigTest extends TestCase

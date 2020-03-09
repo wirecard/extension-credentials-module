@@ -2,10 +2,14 @@
 
 namespace Credentials\Config;
 
-use Credentials\Constants\PaymentMethod;
+use Credentials\Constants\PaymentMethodRegistry;
 use Credentials\Exception\InvalidPaymentMethodException;
 use Credentials\Exception\MissedCredentialsException;
 
+/**
+ * Class ConfigFactory
+ * @package Credentials\Config
+ */
 class ConfigFactory
 {
     /**
@@ -18,11 +22,11 @@ class ConfigFactory
      */
     public function createConfig($paymentMethod, array $credentials)
     {
-        if (!in_array($paymentMethod, PaymentMethod::availablePaymentMethods())) {
+        if (!in_array($paymentMethod, (new PaymentMethodRegistry())->availablePaymentMethods())) {
             throw new InvalidPaymentMethodException($paymentMethod);
         }
 
-        if ($paymentMethod === PaymentMethod::TYPE_CREDIT_CARD) {
+        if ($paymentMethod === PaymentMethodRegistry::TYPE_CREDIT_CARD) {
             return new CreditCardConfig($credentials);
         }
 
