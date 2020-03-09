@@ -1,5 +1,7 @@
 <?php
 
+ini_set("display_errors", true);
+
 $basePath = dirname(dirname(__FILE__));
 require_once $basePath . "/vendor/autoload.php";
 
@@ -8,11 +10,14 @@ $credentialFilePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . "default_credent
 try {
     $module = new Credentials\Credentials($credentialFilePath);
 } catch (Credentials\Exception\InvalidPaymentMethodException $e) {
-    $credentials = [];
+    print_r($e->getMessage() . PHP_EOL);
+    exit(0);
 } catch (Credentials\Exception\InvalidXMLFormatException $e) {
-    $credentials = [];
+    print_r($e->getMessage() . PHP_EOL);
+    exit(0);
 } catch (Credentials\Exception\MissedCredentialsException $e) {
-    $credentials = [];
+    print_r($e->getMessage() . PHP_EOL);
+    exit(0);
 }
 
 try {
@@ -33,6 +38,7 @@ try {
     }
 } catch (Credentials\Exception\InvalidPaymentMethodException $e) {
     print_r($e->getMessage() . PHP_EOL);
+    exit(0);
 }
 
 $credentials = $module->getCredentials();
@@ -49,6 +55,7 @@ try {
     $credentials = $reader->toArray();
 } catch (Credentials\Exception\InvalidXMLFormatException $e) {
     print_r($e->getMessage() . PHP_EOL);
+    exit(0);
 }
 
 $credentialsConfigFactory = new Credentials\Config\ConfigFactory();
@@ -63,8 +70,10 @@ if ($credentials[Credentials\Constants\PaymentMethodRegistry::TYPE_CREDIT_CARD])
         print_r("CreditCard => " . $creditCardConfig->getThreeDSecret() . PHP_EOL);
     } catch (Credentials\Exception\InvalidPaymentMethodException $e) {
         print_r($e->getMessage() . PHP_EOL);
+        exit(0);
     } catch (Credentials\Exception\MissedCredentialsException $e) {
         print_r($e->getMessage() . PHP_EOL);
+        exit(0);
     }
 }
 
@@ -81,7 +90,9 @@ if ($credentials[Credentials\Constants\PaymentMethodRegistry::TYPE_PAYPAL]) {
         print_r("Paypal => " . $defaultConfig->getHttpPassword() . PHP_EOL);
     } catch (Credentials\Exception\InvalidPaymentMethodException $e) {
         print_r($e->getMessage() . PHP_EOL);
+        exit(0);
     } catch (Credentials\Exception\MissedCredentialsException $e) {
         print_r($e->getMessage() . PHP_EOL);
+        exit(0);
     }
 }
