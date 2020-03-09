@@ -46,7 +46,7 @@ class XMLReader implements ReaderInterface
     {
         return sprintf(
             "%s/%s",
-            dirname(__DIR__, 2),
+            dirname(dirname(__DIR__)),
             self::XML_SCHEMA_FILE_NAME
         );
     }
