@@ -9,18 +9,57 @@ namespace Credentials\Constants;
  */
 class PaymentMethodRegistry
 {
+    /**
+     * @var string
+     */
     const TYPE_CREDIT_CARD = "creditcard";
+    /**
+     * @var string
+     */
     const TYPE_PAYPAL = "paypal";
+    /**
+     * @var string
+     */
     const TYPE_SOFORTBANKING = "sofortbanking";
+    /**
+     * @var string
+     */
     const TYPE_ALIPAY_XBORDER = "alipay-xborder";
+    /**
+     * @var string
+     */
     const TYPE_IDEAL = "ideal";
+    /**
+     * @var string
+     */
     const TYPE_WIRETRANSFER = "wiretransfer";
+    /**
+     * @var string
+     */
     const TYPE_RATEPAY = "ratepay-invoice";
+    /**
+     * @var string
+     */
     const TYPE_EPS = "eps";
+    /**
+     * @var string
+     */
     const TYPE_GIROPAY = "giropay";
+    /**
+     * @var string
+     */
     const TYPE_ZAPP = "zapp";
+    /**
+     * @var string
+     */
     const TYPE_SEPACREDIT = "sepacredit";
+    /**
+     * @var string
+     */
     const TYPE_SEPA_DIRECT_DEBIT = "sepadirectdebit";
+    /**
+     * @var string
+     */
     const TYPE_MASTERPASS = "masterpass";
 
     /**

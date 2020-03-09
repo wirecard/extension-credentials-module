@@ -10,6 +10,7 @@ use Credentials\Exception\MissedCredentialsException;
  * Class MissedCredentialsExceptionTest
  * @package CredentialsTest\Constants
  * @coversDefaultClass \Credentials\Exception\MissedCredentialsException
+ * @since 1.0.0
  */
 class MissedCredentialsExceptionTest extends TestCase
 {

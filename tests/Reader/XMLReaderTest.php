@@ -11,6 +11,7 @@ use PHPUnit_Framework_MockObject_MockObject;
  * Class XMLReaderTest
  * @package CredentialsReaderTest\Reader
  * @coversDefaultClass \Credentials\Reader\XMLReader
+ * @since 1.0.0
  */
 class XMLReaderTest extends TestCase
 {

@@ -20,7 +20,6 @@ class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardCon
     const ATTRIBUTE_3D_SECRET = "three_d_secret";
     /**
      * @var string
-     *
      */
     const ATTRIBUTE_3D_MERCHANT_ACCOUNT_ID = "three_d_merchant_account_id";
 

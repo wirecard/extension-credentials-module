@@ -8,9 +8,10 @@ use Credentials\Exception\MissedCredentialsException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class XMLReaderTest
+ * Class DefaultConfigTest
  * @package CredentialsTest\Reader
  * @coversDefaultClass \Credentials\Config\DefaultConfig
+ * @since 1.0.0
  */
 class DefaultConfigTest extends TestCase
 {

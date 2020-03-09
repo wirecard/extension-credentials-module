@@ -14,12 +14,13 @@ use PHPUnit\Framework\TestCase;
 use Generator;
 
 /**
- * Class XMLReaderTest
+ * Class ConfigFactoryTest
  * @package CredentialsTest\Reader
  * @coversDefaultClass \Credentials\Config\ConfigFactory
  * @SuppressWarnings(PHPMD.LongVariable)
+ * @since 1.0.0
  */
-class CreditCardConfigTest extends TestCase
+class ConfigFactoryTest extends TestCase
 {
     /**
      * @group unit

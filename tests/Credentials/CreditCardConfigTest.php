@@ -10,9 +10,10 @@ use Credentials\Exception\MissedCredentialsException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class XMLReaderTest
+ * Class CreditCardConfigTest
  * @package CredentialsTest\Reader
  * @coversDefaultClass \Credentials\Config\CreditCardConfig
+ * @since 1.0.0
  */
 class CreditCardConfigTest extends TestCase
 {

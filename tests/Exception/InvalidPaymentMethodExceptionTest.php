@@ -11,6 +11,7 @@ use Credentials\Exception\InvalidPaymentMethodException;
  * Class InvalidPaymentMethodExceptionTest
  * @package CredentialsTest\Exception
  * @coversDefaultClass \Credentials\Exception\InvalidPaymentMethodException
+ * @since 1.0.0
  */
 class InvalidPaymentMethodExceptionTest extends TestCase
 {

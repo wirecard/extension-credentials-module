@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
  * @package CredentialsTest\Constants
  * @coversDefaultClass \Credentials\Constants\PaymentMethodRegistry
  * @SuppressWarnings(PHPMD.LongVariable)
+ * @since 1.0.0
  */
 class PaymentMethodRegistryTest extends TestCase
 {

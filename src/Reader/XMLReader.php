@@ -5,6 +5,11 @@ namespace Credentials\Reader;
 use DOMDocument;
 use Credentials\Exception\InvalidXMLFormatException;
 
+/**
+ * Class XMLReader
+ * @package Credentials\Reader
+ * @since 1.0.0
+ */
 class XMLReader implements ReaderInterface
 {
     /**

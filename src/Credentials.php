@@ -8,6 +8,11 @@ use Credentials\Config\CredentialsCreditCardConfigInterface;
 use Credentials\Exception\InvalidPaymentMethodException;
 use Credentials\Reader\XMLReader;
 
+/**
+ * Class Credentials
+ * @package Credentials
+ * @since 1.0.0
+ */
 class Credentials
 {
     /**
