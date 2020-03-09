@@ -49,11 +49,11 @@ class CreditCardConfigTest extends TestCase
      */
     public function testConstructor()
     {
-        $paymentMethodRegistry = new PaymentMethodRegistry();
+        $pMethodRegistry = new PaymentMethodRegistry();
         $credentials = $this->getDefaultCredentials();
         $paymentMethod = new PaymentMethod(
             PaymentMethodRegistry::TYPE_CREDIT_CARD,
-            $paymentMethodRegistry
+            $pMethodRegistry
         );
         $creditCardConfig = new CreditCardConfig($paymentMethod, $credentials);
         $this->assertEquals($credentials[CreditCardConfig::ATTRIBUTE_BASE_URL], $creditCardConfig->getBaseUrl());
@@ -89,12 +89,12 @@ class CreditCardConfigTest extends TestCase
      */
     public function testToArray()
     {
-        $paymentMethodRegistry = new PaymentMethodRegistry();
+        $pMethodRegistry = new PaymentMethodRegistry();
         $credentials = $this->getDefaultCredentials();
-        $pm = $paymentMethodRegistry->getPaymentMethod(
+        $paymentMethod = $pMethodRegistry->getPaymentMethod(
             PaymentMethodRegistry::TYPE_CREDIT_CARD
         );
-        $creditCardConfig = new CreditCardConfig($pm, $credentials);
+        $creditCardConfig = new CreditCardConfig($paymentMethod, $credentials);
         $this->assertEquals($credentials, $creditCardConfig->toArray());
     }
 }

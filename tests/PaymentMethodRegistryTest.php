@@ -34,8 +34,8 @@ class PaymentMethodRegistryTest extends TestCase
     public function dataProviderAvailablePaymentMethods()
     {
         $registry = new PaymentMethodRegistry();
-        foreach ($registry->availablePaymentMethods() as $pm) {
-            yield $pm => [$pm, new PaymentMethod($pm, $registry)];
+        foreach ($registry->availablePaymentMethods() as $paymentMethod) {
+            yield $paymentMethod => [$paymentMethod, new PaymentMethod($paymentMethod, $registry)];
         }
     }
 
@@ -44,14 +44,14 @@ class PaymentMethodRegistryTest extends TestCase
      * @small
      * @covers ::availablePaymentMethods
      * @dataProvider dataProviderAvailablePaymentMethods
-     * @param string $pm
+     * @param string $paymentMethod
      * @param PaymentMethod $expectedObject
      * @throws InvalidPaymentMethodException
      */
-    public function testConstructor($pm, $expectedObject)
+    public function testConstructor($paymentMethod, $expectedObject)
     {
-        $this->assertTrue($this->registry->hasPaymentMethod($pm));
-        $this->assertEquals($expectedObject, $this->registry->getPaymentMethod($pm));
+        $this->assertTrue($this->registry->hasPaymentMethod($paymentMethod));
+        $this->assertEquals($expectedObject, $this->registry->getPaymentMethod($paymentMethod));
     }
 
     /**
@@ -62,9 +62,9 @@ class PaymentMethodRegistryTest extends TestCase
      */
     public function testGetPaymentMethod()
     {
-        $pm = $this->registry->getPaymentMethod(PaymentMethodRegistry::TYPE_EPS);
-        $this->assertEquals(PaymentMethodRegistry::TYPE_EPS, $pm->getValue());
-        $this->assertInstanceOf(PaymentMethod::class, $pm);
+        $paymentMethod = $this->registry->getPaymentMethod(PaymentMethodRegistry::TYPE_EPS);
+        $this->assertEquals(PaymentMethodRegistry::TYPE_EPS, $paymentMethod->getValue());
+        $this->assertInstanceOf(PaymentMethod::class, $paymentMethod);
         $this->expectException(InvalidPaymentMethodException::class);
         $this->registry->getPaymentMethod("InvalidType");
     }

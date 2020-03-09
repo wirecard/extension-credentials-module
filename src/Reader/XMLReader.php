@@ -29,7 +29,7 @@ class XMLReader implements ReaderInterface
     /**
      * @var PaymentMethodRegistry
      */
-    private $paymentMethodRegistry;
+    private $pmRegistry;
 
     /**
      * XMLReader constructor.
@@ -40,7 +40,7 @@ class XMLReader implements ReaderInterface
      */
     public function __construct($data, PaymentMethodRegistry $registry)
     {
-        $this->paymentMethodRegistry = $registry;
+        $this->pmRegistry = $registry;
         $this->rawXML = $data;
         try {
             if (!$this->validate()) {
@@ -94,7 +94,7 @@ class XMLReader implements ReaderInterface
         $credentials = [];
         $xml = (array)simplexml_load_string($this->getRawXML());
         foreach ($xml as $paymentMethod => $credentialItem) {
-            $credentials[(string)$this->paymentMethodRegistry->getPaymentMethod($paymentMethod)]
+            $credentials[(string)$this->pmRegistry->getPaymentMethod($paymentMethod)]
                 = (array)$credentialItem;
         }
 

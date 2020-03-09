@@ -37,3 +37,6 @@ jobs:
 
       - name: Unit Test
         run: composer test
+
+      - name: MD Check
+        run: composer md

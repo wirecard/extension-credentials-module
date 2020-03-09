@@ -31,7 +31,7 @@ class DefaultConfigTest extends TestCase
      */
     public function testConstructor()
     {
-        $paymentMethodRegistry = new PaymentMethodRegistry();
+        $pMethodRegistry = new PaymentMethodRegistry();
         $credentials = [
             DefaultConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
             DefaultConfig::ATTRIBUTE_BASE_URL => "https://base.wirecard.com",
@@ -39,11 +39,11 @@ class DefaultConfigTest extends TestCase
             DefaultConfig::ATTRIBUTE_HTTP_USER => "http_user",
             DefaultConfig::ATTRIBUTE_HTTP_PASSWORD => "http_password",
         ];
-        $pm = $paymentMethodRegistry->getPaymentMethod(
+        $paymentMethod = $pMethodRegistry->getPaymentMethod(
             PaymentMethodRegistry::TYPE_PAYPAL
         );
-        $defaultConfig = new DefaultConfig($pm, $credentials);
-        $this->assertEquals($pm, $defaultConfig->getPaymentMethod());
+        $defaultConfig = new DefaultConfig($paymentMethod, $credentials);
+        $this->assertEquals($paymentMethod, $defaultConfig->getPaymentMethod());
         $this->assertEquals(
             PaymentMethodRegistry::TYPE_PAYPAL,
             $defaultConfig->getPaymentMethod()->getValue()
@@ -69,7 +69,7 @@ class DefaultConfigTest extends TestCase
         $this->assertInstanceOf(CredentialsConfigInterface::class, $defaultConfig);
 
         $this->expectException(MissedCredentialsException::class);
-        new DefaultConfig($paymentMethodRegistry->getPaymentMethod(
+        new DefaultConfig($pMethodRegistry->getPaymentMethod(
             PaymentMethodRegistry::TYPE_PAYPAL
         ), []);
     }
@@ -83,7 +83,7 @@ class DefaultConfigTest extends TestCase
      */
     public function testToArray()
     {
-        $paymentMethodRegistry = new PaymentMethodRegistry();
+        $pMethodRegistry = new PaymentMethodRegistry();
         $credentials = [
             DefaultConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID => "123456",
             DefaultConfig::ATTRIBUTE_BASE_URL => "https://base.wirecard.com",
@@ -91,10 +91,10 @@ class DefaultConfigTest extends TestCase
             DefaultConfig::ATTRIBUTE_HTTP_USER => "http_user",
             DefaultConfig::ATTRIBUTE_HTTP_PASSWORD => "http_password",
         ];
-        $pm = $paymentMethodRegistry->getPaymentMethod(
+        $paymentMethod = $pMethodRegistry->getPaymentMethod(
             PaymentMethodRegistry::TYPE_PAYPAL
         );
-        $defaultConfig = new DefaultConfig($pm, $credentials);
+        $defaultConfig = new DefaultConfig($paymentMethod, $credentials);
         $this->assertEquals($credentials, $defaultConfig->toArray());
     }
 }

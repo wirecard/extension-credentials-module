@@ -28,7 +28,7 @@ class Credentials
     /**
      * @var PaymentMethodRegistry
      */
-    private $paymentMethodRegistry;
+    private $pmRegistry;
 
     /**
      * Credentials constructor.
@@ -55,8 +55,8 @@ class Credentials
      */
     private function loadCredentialsConfig()
     {
-        $credentialsConfigFactory = new ConfigFactory($this->getPaymentMethodRegistry());
-        $this->credentialsConfig = $credentialsConfigFactory->createConfigList(
+        $configFactory = new ConfigFactory($this->getPaymentMethodRegistry());
+        $this->credentialsConfig = $configFactory->createConfigList(
             $this->getReader()->toArray()
         );
         return $this;
@@ -78,10 +78,10 @@ class Credentials
      */
     public function getPaymentMethodRegistry()
     {
-        if (is_null($this->paymentMethodRegistry)) {
-            $this->paymentMethodRegistry = new PaymentMethodRegistry();
+        if (is_null($this->pmRegistry)) {
+            $this->pmRegistry = new PaymentMethodRegistry();
         }
-        return $this->paymentMethodRegistry;
+        return $this->pmRegistry;
     }
 
     /**

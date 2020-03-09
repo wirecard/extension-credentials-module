@@ -44,15 +44,15 @@ class PaymentMethodTest extends TestCase
      * @small
      * @dataProvider dataProviderAvailablePaymentMethods
      * @covers ::getValue
-     * @param string $pm
+     * @param string $value
      * @throws InvalidPaymentMethodException
      */
-    public function testConstructor($pm)
+    public function testConstructor($value)
     {
-        $paymentMethod = new PaymentMethod($pm, $this->registry);
+        $paymentMethod = new PaymentMethod($value, $this->registry);
         $this->assertInstanceOf(PaymentMethod::class, $paymentMethod);
-        $this->assertEquals($pm, $paymentMethod->getValue());
-        $this->assertEquals($pm, (string)$paymentMethod);
+        $this->assertEquals($value, $paymentMethod->getValue());
+        $this->assertEquals($value, (string)$paymentMethod);
     }
 
     /**
