@@ -5,7 +5,6 @@ namespace Credentials;
 use Credentials\Config\ConfigFactory;
 use Credentials\Config\CredentialsConfigInterface;
 use Credentials\Config\CredentialsCreditCardConfigInterface;
-use Credentials\Exception\InvalidPaymentMethodException;
 use Credentials\Reader\XMLReader;
 
 /**
@@ -41,20 +40,27 @@ class Credentials
      */
     public function __construct($credentialsFilePath)
     {
-        $this->paymentMethodRegistry = new PaymentMethodRegistry();
-        $this->reader = new XMLReader(file_get_contents($credentialsFilePath));
+        $this->reader = new XMLReader(
+            file_get_contents($credentialsFilePath),
+            $this->getPaymentMethodRegistry()
+        );
         $this->loadCredentialsConfig();
+        echo "<pre>";
+        print_r($this);
+        echo "</pre>";
+        die;
     }
 
     /**
      * @return Credentials
-     * @throws Exception\InvalidPaymentMethodException
      * @throws Exception\MissedCredentialsException
+     * @throws Exception\InvalidPaymentMethodException
      * @since 1.0.0
      */
     private function loadCredentialsConfig()
     {
-        $this->credentialsConfig = (new ConfigFactory())->createConfigList(
+        $credentialsConfigFactory = new ConfigFactory($this->getPaymentMethodRegistry());
+        $this->credentialsConfig = $credentialsConfigFactory->createConfigList(
             $this->getReader()->toArray()
         );
         return $this;
@@ -69,6 +75,19 @@ class Credentials
         return $this->reader;
     }
 
+
+    /**
+     * @return PaymentMethodRegistry
+     * @throws Exception\InvalidPaymentMethodException
+     */
+    public function getPaymentMethodRegistry()
+    {
+        if (is_null($this->paymentMethodRegistry)) {
+            $this->paymentMethodRegistry = new PaymentMethodRegistry();
+        }
+        return $this->paymentMethodRegistry;
+    }
+
     /**
      * @param PaymentMethod | string $paymentMethod
      * @return CredentialsConfigInterface|CredentialsCreditCardConfigInterface
@@ -76,7 +95,7 @@ class Credentials
      */
     public function getCredentialsByPaymentMethod(PaymentMethod $paymentMethod)
     {
-        return $this->credentialsConfig[$paymentMethod];
+        return $this->credentialsConfig[(string)$paymentMethod];
     }
 
     /**

@@ -16,21 +16,18 @@ use Credentials\Exception\MissedCredentialsException;
 class ConfigFactory
 {
     /**
-     * @var array
+     * @var PaymentMethodRegistry
      */
-    private $availablePaymentMethods = [];
+    private $paymentMethodRegistry;
 
     /**
-     * @return array
+     * ConfigFactory constructor.
+     * @param PaymentMethodRegistry $paymentMethodRegistry
      * @since 1.0.0
      */
-    private function getAvailablePaymentMethods()
+    public function __construct(PaymentMethodRegistry $paymentMethodRegistry)
     {
-        if (empty($this->availablePaymentMethods)) {
-            $paymentMethodRegistry = new PaymentMethodRegistry();
-            $this->availablePaymentMethods = $paymentMethodRegistry->availablePaymentMethods();
-        }
-        return $this->availablePaymentMethods;
+        $this->paymentMethodRegistry = $paymentMethodRegistry;
     }
 
     /**
@@ -43,23 +40,25 @@ class ConfigFactory
     public function createConfig(PaymentMethod $paymentMethod, array $credentials)
     {
         if ($paymentMethod->equalsTo(PaymentMethodRegistry::TYPE_CREDIT_CARD)) {
-            return new CreditCardConfig($credentials);
+            return new CreditCardConfig($paymentMethod, $credentials);
         }
 
-        return new DefaultConfig($credentials);
+        return new DefaultConfig($paymentMethod, $credentials);
     }
 
     /**
      * @param array $credentials
      * @return array
      * @throws MissedCredentialsException
+     * @throws InvalidPaymentMethodException
      * @since 1.0.0
      */
     public function createConfigList(array $credentials)
     {
         $configList = [];
-        foreach ($credentials as $paymentMethod => $credentialItem) {
-            $configList[$paymentMethod] = $this->createConfig($paymentMethod, $credentialItem);
+        foreach ($credentials as $type => $credentialItem) {
+            $paymentMethod = $this->paymentMethodRegistry->getPaymentMethod($type);
+            $configList[(string)$paymentMethod] = $this->createConfig($paymentMethod, $credentialItem);
         }
         return $configList;
     }

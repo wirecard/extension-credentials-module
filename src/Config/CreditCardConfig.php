@@ -84,4 +84,16 @@ class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardCon
         $this->threeDMerchantAccountId = $credentials[self::ATTRIBUTE_3D_MERCHANT_ACCOUNT_ID];
         $this->threeDSecret = $credentials[self::ATTRIBUTE_3D_SECRET];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray()
+    {
+        $toArray = parent::toArray();
+        $toArray[self::ATTRIBUTE_WPP_URL] = $this->getWppUrl();
+        $toArray[self::ATTRIBUTE_3D_MERCHANT_ACCOUNT_ID] = $this->getThreeDMerchantAccountId();
+        $toArray[self::ATTRIBUTE_3D_SECRET] = $this->getThreeDSecret();
+        return $toArray;
+    }
 }

@@ -3,7 +3,6 @@
 namespace Credentials\Reader;
 
 use Credentials\Exception\InvalidPaymentMethodException;
-use Credentials\PaymentMethod;
 use Credentials\PaymentMethodRegistry;
 use DOMDocument;
 use Credentials\Exception\InvalidXMLFormatException;

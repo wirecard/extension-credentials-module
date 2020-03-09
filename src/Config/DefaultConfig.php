@@ -3,6 +3,7 @@
 namespace Credentials\Config;
 
 use Credentials\Exception\MissedCredentialsException;
+use Credentials\PaymentMethod;
 
 /**
  * Class DefaultConfig
@@ -37,6 +38,11 @@ class DefaultConfig implements CredentialsConfigInterface
     const ATTRIBUTE_HTTP_PASSWORD = "http_pass";
 
     /**
+     * @var PaymentMethod
+     */
+    private $paymentMethod;
+
+    /**
      * @var string
      */
     private $baseUrl;
@@ -63,12 +69,14 @@ class DefaultConfig implements CredentialsConfigInterface
 
     /**
      * BaseConfig constructor.
+     * @param PaymentMethod $paymentMethod
      * @param array $credentials
      * @throws MissedCredentialsException
      * @since 1.0.0
      */
-    public function __construct(array $credentials)
+    public function __construct(PaymentMethod $paymentMethod, array $credentials)
     {
+        $this->paymentMethod = $paymentMethod;
         $missedKeys = array_diff($this->requiredAttributeList(), array_keys($credentials));
         if (count($missedKeys) > 0) {
             throw new MissedCredentialsException(array_values($missedKeys));
@@ -117,6 +125,14 @@ class DefaultConfig implements CredentialsConfigInterface
     }
 
     /**
+     * @return PaymentMethod
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+    /**
      * @return array
      * @since 1.0.0
      */
@@ -142,5 +158,20 @@ class DefaultConfig implements CredentialsConfigInterface
         $this->secret = $credentials[self::ATTRIBUTE_SECRET];
         $this->httpUser = $credentials[self::ATTRIBUTE_HTTP_USER];
         $this->httpPassword = $credentials[self::ATTRIBUTE_HTTP_PASSWORD];
+    }
+
+    /**
+     * @return array
+     * @since 1.0.0
+     */
+    public function toArray()
+    {
+        return [
+            self::ATTRIBUTE_BASE_URL => $this->getBaseUrl(),
+            self::ATTRIBUTE_MERCHANT_ACCOUNT_ID => $this->getMerchantAccountId(),
+            self::ATTRIBUTE_SECRET => $this->getSecret(),
+            self::ATTRIBUTE_HTTP_USER => $this->getHttpUser(),
+            self::ATTRIBUTE_HTTP_PASSWORD => $this->getHttpPassword()
+        ];
     }
 }

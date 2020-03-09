@@ -4,6 +4,7 @@ namespace CredentialsTest\Credentials;
 
 use Credentials\Config\CredentialsConfigInterface;
 use Credentials\Config\CredentialsCreditCardConfigInterface;
+use Credentials\PaymentMethod;
 use Credentials\PaymentMethodRegistry;
 use Credentials\Config\ConfigFactory;
 use Credentials\Config\CreditCardConfig;
@@ -31,10 +32,11 @@ class ConfigFactoryTest extends TestCase
      */
     public function testCreateConfigException()
     {
-        $factory = new ConfigFactory();
+        $pmRegistry = new PaymentMethodRegistry();
+        $factory = new ConfigFactory($pmRegistry);
 
         $this->expectException(MissedCredentialsException::class);
-        $factory->createConfig(PaymentMethodRegistry::TYPE_CREDIT_CARD, []);
+        $factory->createConfig($pmRegistry->getPaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD), []);
         $this->expectException(InvalidPaymentMethodException::class);
         $factory->createConfig("InvalidType", []);
     }
@@ -70,11 +72,14 @@ class ConfigFactoryTest extends TestCase
 
     /**
      * @return Generator
+     * @throws InvalidPaymentMethodException
      */
     public function createConfigDataProvider()
     {
+        $pmRegistry = new PaymentMethodRegistry();
+
         yield "create credit card config" => [
-            PaymentMethodRegistry::TYPE_CREDIT_CARD,
+            $pmRegistry->getPaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD),
             $this->getCreditCardConfigCredentials(),
             CreditCardConfig::class,
             CredentialsCreditCardConfigInterface::class
@@ -84,7 +89,7 @@ class ConfigFactoryTest extends TestCase
         array_shift($availablePaymentMethodList);
         foreach ($availablePaymentMethodList as $paymentMethod) {
             yield "create default config {$paymentMethod}" => [
-                PaymentMethodRegistry::TYPE_MASTERPASS,
+                $pmRegistry->getPaymentMethod($paymentMethod),
                 $this->getDefaultConfigCredentials(),
                 DefaultConfig::class,
                 CredentialsConfigInterface::class
@@ -97,20 +102,18 @@ class ConfigFactoryTest extends TestCase
      * @small
      * @covers ::createConfig
      * @dataProvider createConfigDataProvider
-     * @param string $type
+     * @param PaymentMethod $pm
      * @param array $credentials
      * @param string $configClass
      * @param string $configInterface
      * @throws InvalidPaymentMethodException
      * @throws MissedCredentialsException
      */
-    public function testCreateConfig($type, $credentials, $configClass, $configInterface)
+    public function testCreateConfig($pm, $credentials, $configClass, $configInterface)
     {
-        $factory = new ConfigFactory();
-        $config = $factory->createConfig(
-            $type,
-            $credentials
-        );
+        $pmRegistry = new PaymentMethodRegistry();
+        $factory = new ConfigFactory($pmRegistry);
+        $config = $factory->createConfig($pm, $credentials);
         $this->assertInstanceOf($configClass, $config);
         $this->assertInstanceOf($configInterface, $config);
     }
@@ -124,7 +127,8 @@ class ConfigFactoryTest extends TestCase
      */
     public function testCreateConfigList()
     {
-        $factory = new ConfigFactory();
+        $pmRegistry = new PaymentMethodRegistry();
+        $factory = new ConfigFactory($pmRegistry);
 
         $result = $factory->createConfigList([
             PaymentMethodRegistry::TYPE_CREDIT_CARD => $this->getCreditCardConfigCredentials(),

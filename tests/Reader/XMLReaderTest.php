@@ -2,7 +2,9 @@
 
 namespace CredentialsReaderTest\Reader;
 
+use Credentials\Exception\InvalidPaymentMethodException;
 use Credentials\Exception\InvalidXMLFormatException;
+use Credentials\PaymentMethodRegistry;
 use Credentials\Reader\XMLReader;
 use PHPUnit\Framework\TestCase;
 use Generator;
@@ -17,29 +19,13 @@ use PHPUnit_Framework_MockObject_MockObject;
 class XMLReaderTest extends TestCase
 {
     /**
-     * @return Generator
+     * @return string
      */
-    public function plainXMLDataProvider()
+    private function getSampleXMLRawData()
     {
-        yield "test_xml_sample_one_node" => [
-            '<?xml version="1.0" encoding="utf-8"?>
-                <config>
-                    <creditcard>
-                        <merchant_account_id>a1-d2-c3-d4</merchant_account_id>
-                        <base_url>https://api.wirecard.com</base_url>
-                    </creditcard>
-                </config>
-            ',
-
-            [
-                "creditcard" => [
-                    'merchant_account_id' => 'a1-d2-c3-d4',
-                    'base_url' => 'https://api.wirecard.com'
-                ]
-            ]];
-        yield "test_xml_sample_two_node" => [
-            '<?xml version="1.0" encoding="utf-8"?>
-                <config>
+        return '<?xml version="1.0" encoding="utf-8"?>
+                <config 
+                >
                     <creditcard>
                         <merchant_account_id>merchant_account_id</merchant_account_id>
                         <secret>secret</secret>
@@ -58,8 +44,16 @@ class XMLReaderTest extends TestCase
                         <http_pass>password</http_pass>
                     </paypal>
                 </config>
-            ',
+            ';
+    }
 
+    /**
+     * @return Generator
+     */
+    public function plainXMLDataProvider()
+    {
+        yield "sample_xml_raw_data" => [
+            $this->getSampleXMLRawData(),
             [
                 "creditcard" => [
                     'merchant_account_id' => 'merchant_account_id',
@@ -84,54 +78,38 @@ class XMLReaderTest extends TestCase
     /**
      * @group unit
      * @small
+     * @covers ::toArray()
+     * @dataProvider plainXMLDataProvider
      * @param string $data
      * @param array $expectedResult
-     * @dataProvider plainXMLDataProvider
-     * @covers ::getCredentials()
+     * @throws InvalidXMLFormatException
+     * @throws InvalidPaymentMethodException
      */
-    public function testCredentials($data, $expectedResult)
+    public function testToArray($data, $expectedResult)
     {
+        $registry = new PaymentMethodRegistry();
         /** @var XMLReader | PHPUnit_Framework_MockObject_MockObject $reader */
-        $reader = $this->getMockBuilder(XMLReader::class)
-            ->setMethods(['getRawXML'])->disableOriginalConstructor()->getMock();
-        $reader->expects($this->any())->method('getRawXML')->willReturn($data);
+        $reader = new XMLReader($data, $registry);
         $this->assertEquals($expectedResult, $reader->toArray());
     }
 
     /**
+     * @group unit
+     * @small
+     * @covers ::validate
      * @throws InvalidXMLFormatException
+     * @throws InvalidPaymentMethodException
      */
     public function testValidate()
     {
-        $testXMLString = '<?xml version="1.0" encoding="utf-8"?>
-                <config 
-                >
-                    <creditcard>
-                        <merchant_account_id>merchant_account_id</merchant_account_id>
-                        <secret>secret</secret>
-                        <base_url>https://api-test.wirecard.com</base_url>
-                        <http_user>user</http_user>
-                        <http_pass>password</http_pass>
-                        <wpp_url>https://wpp-test.wirecard.com</wpp_url>
-                        <three_d_merchant_account_id>three_d_merchant_account_id</three_d_merchant_account_id>
-                        <three_d_secret>three_d_secret</three_d_secret>
-                    </creditcard>
-                    <paypal>
-                        <merchant_account_id>merchant_account_id</merchant_account_id>
-                        <secret>secret</secret>
-                        <base_url>https://api-test.wirecard.com</base_url>
-                        <http_user>user</http_user>
-                        <http_pass>password</http_pass>
-                    </paypal>
-                </config>
-            ';
-        /** @var XMLReader | PHPUnit_Framework_MockObject_MockObject $reader */
-        new XMLReader($testXMLString);
-        new XMLReader('<?xml version="1.0" encoding="utf-8"?><config/>');
+        $testXMLString = $this->getSampleXMLRawData();
+        $registry = new PaymentMethodRegistry();
+        new XMLReader($testXMLString, $registry);
+        new XMLReader('<?xml version="1.0" encoding="utf-8"?><config/>', $registry);
         $this->expectException(InvalidXMLFormatException::class);
         new XMLReader('<?xml version="1.0" encoding="utf-8"?><config><invalid_payment_type>
-                            </invalid_payment_type></config>');
+                            </invalid_payment_type></config>', $registry);
         $this->expectException(InvalidXMLFormatException::class);
-        new XMLReader('<?xml version="1.0" encoding="utf-8"?><configs></configs>');
+        new XMLReader('<?xml version="1.0" encoding="utf-8"?><configs></configs>', $registry);
     }
 }

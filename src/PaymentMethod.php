@@ -18,13 +18,14 @@ class PaymentMethod
 
     /**
      * PaymentMethod constructor.
-     * @param $paymentMethod
+     * @param string $paymentMethod
+     * @param PaymentMethodRegistry $registry
      * @throws InvalidPaymentMethodException
      * @since 1.0.0
      */
     public function __construct($paymentMethod, PaymentMethodRegistry $registry)
     {
-        if (!in_array($paymentMethod, $registry->availablePaymentMethods())) {
+        if (!$registry->hasPaymentMethod($paymentMethod)) {
             throw new InvalidPaymentMethodException($paymentMethod);
         }
         $this->value = $paymentMethod;
