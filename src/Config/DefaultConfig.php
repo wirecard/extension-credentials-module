@@ -38,11 +38,6 @@ class DefaultConfig implements CredentialsConfigInterface
     const ATTRIBUTE_HTTP_PASSWORD = "http_pass";
 
     /**
-     * @var PaymentMethod
-     */
-    private $paymentMethod;
-
-    /**
      * @var string
      */
     private $baseUrl;
@@ -69,14 +64,12 @@ class DefaultConfig implements CredentialsConfigInterface
 
     /**
      * BaseConfig constructor.
-     * @param PaymentMethod $paymentMethod
      * @param array $credentials
      * @throws MissedCredentialsException
      * @since 1.0.0
      */
-    public function __construct(PaymentMethod $paymentMethod, array $credentials)
+    public function __construct(array $credentials)
     {
-        $this->paymentMethod = $paymentMethod;
         $missedKeys = array_diff($this->requiredAttributeList(), array_keys($credentials));
         if (count($missedKeys) > 0) {
             throw new MissedCredentialsException(array_values($missedKeys));
@@ -122,14 +115,6 @@ class DefaultConfig implements CredentialsConfigInterface
     public function getHttpPassword()
     {
         return $this->httpPassword;
-    }
-
-    /**
-     * @return PaymentMethod
-     */
-    public function getPaymentMethod()
-    {
-        return $this->paymentMethod;
     }
 
     /**

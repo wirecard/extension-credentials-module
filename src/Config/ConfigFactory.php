@@ -15,19 +15,19 @@ use Credentials\Exception\MissedCredentialsException;
  */
 class ConfigFactory
 {
+
     /**
-     * @var PaymentMethodRegistry
+     * @var PaymentMethod
      */
-    private $paymentMethodRegistry;
+    private $referenceCreditCard;
 
     /**
      * ConfigFactory constructor.
-     * @param PaymentMethodRegistry $paymentMethodRegistry
      * @since 1.0.0
      */
-    public function __construct(PaymentMethodRegistry $paymentMethodRegistry)
+    public function __construct()
     {
-        $this->paymentMethodRegistry = $paymentMethodRegistry;
+        $this->referenceCreditCard = new PaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD);
     }
 
     /**
@@ -39,11 +39,11 @@ class ConfigFactory
      */
     public function createConfig(PaymentMethod $paymentMethod, array $credentials)
     {
-        if ($paymentMethod->equalsTo(PaymentMethodRegistry::TYPE_CREDIT_CARD)) {
-            return new CreditCardConfig($paymentMethod, $credentials);
+        if ($paymentMethod->equalsTo($this->referenceCreditCard)) {
+            return new CreditCardConfig($credentials);
         }
 
-        return new DefaultConfig($paymentMethod, $credentials);
+        return new DefaultConfig($credentials);
     }
 
     /**
@@ -56,9 +56,9 @@ class ConfigFactory
     public function createConfigList(array $credentials)
     {
         $configList = [];
-        foreach ($credentials as $type => $credentialItem) {
-            $paymentMethod = $this->paymentMethodRegistry->getPaymentMethod($type);
-            $configList[(string)$paymentMethod] = $this->createConfig($paymentMethod, $credentialItem);
+        foreach (PaymentMethodRegistry::availablePaymentMethods() as $paymentMethodCode) {
+            $paymentMethod = new PaymentMethod($paymentMethodCode);
+            $configList[$paymentMethodCode] = $this->createConfig($paymentMethod, $credentials[$paymentMethodCode]);
         }
         return $configList;
     }

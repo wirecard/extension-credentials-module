@@ -19,13 +19,12 @@ class PaymentMethod
     /**
      * PaymentMethod constructor.
      * @param string $paymentMethod
-     * @param PaymentMethodRegistry $registry
      * @throws InvalidPaymentMethodException
      * @since 1.0.0
      */
-    public function __construct($paymentMethod, PaymentMethodRegistry $registry)
+    public function __construct($paymentMethod)
     {
-        if (!$registry->hasPaymentMethod($paymentMethod)) {
+        if (!in_array($paymentMethod, PaymentMethodRegistry::availablePaymentMethods(), true)) {
             throw new InvalidPaymentMethodException($paymentMethod);
         }
         $this->value = $paymentMethod;
@@ -50,12 +49,12 @@ class PaymentMethod
     }
 
     /**
-     * @param $value
+     * @param PaymentMethod $paymentMethod
      * @return bool
      * @since 1.0.0
      */
-    public function equalsTo($value)
+    public function equalsTo(PaymentMethod $paymentMethod)
     {
-        return $this->getValue() === $value;
+        return $this->value === $paymentMethod->value;
     }
 }

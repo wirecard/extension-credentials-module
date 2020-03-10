@@ -22,84 +22,50 @@ class Credentials
     /**
      * @var array|CredentialsConfigInterface[]|CredentialsCreditCardConfigInterface[]
      */
-    private $credentialsConfig = [];
-
-
-    /**
-     * @var PaymentMethodRegistry
-     */
-    private $pmRegistry;
+    private $config = [];
 
     /**
      * Credentials constructor.
      * @param string $credentialsFilePath
      * @throws Exception\InvalidXMLFormatException
-     * @throws Exception\InvalidPaymentMethodException
-     * @throws Exception\MissedCredentialsException
      * @since 1.0.0
      */
     public function __construct($credentialsFilePath)
     {
-        $this->reader = new XMLReader(
-            file_get_contents($credentialsFilePath),
-            $this->getPaymentMethodRegistry()
-        );
-        $this->loadCredentialsConfig();
-    }
-
-    /**
-     * @return Credentials
-     * @throws Exception\MissedCredentialsException
-     * @throws Exception\InvalidPaymentMethodException
-     * @since 1.0.0
-     */
-    private function loadCredentialsConfig()
-    {
-        $configFactory = new ConfigFactory($this->getPaymentMethodRegistry());
-        $this->credentialsConfig = $configFactory->createConfigList(
-            $this->getReader()->toArray()
-        );
-        return $this;
-    }
-
-    /**
-     * @return Reader\ReaderInterface
-     * @since 1.0.0
-     */
-    public function getReader()
-    {
-        return $this->reader;
-    }
-
-
-    /**
-     * @return PaymentMethodRegistry
-     * @throws Exception\InvalidPaymentMethodException
-     */
-    public function getPaymentMethodRegistry()
-    {
-        if (is_null($this->pmRegistry)) {
-            $this->pmRegistry = new PaymentMethodRegistry();
+        if (!is_readable($credentialsFilePath)) {
+            throw new \RuntimeException("File is not readable: " . $credentialsFilePath);
         }
-        return $this->pmRegistry;
+        $this->reader = new XMLReader(
+            file_get_contents($credentialsFilePath)
+        );
     }
 
     /**
      * @param PaymentMethod | string $paymentMethod
      * @return CredentialsConfigInterface|CredentialsCreditCardConfigInterface
+     * @throws Exception\InvalidPaymentMethodException
+     * @throws Exception\MissedCredentialsException
      * @since 1.0.0
      */
-    public function getCredentialsByPaymentMethod(PaymentMethod $paymentMethod)
+    public function getConfigByPaymentMethod(PaymentMethod $paymentMethod)
     {
-        return $this->credentialsConfig[(string)$paymentMethod];
+        $config = $this->getConfig();
+        return $config[(string)$paymentMethod];
     }
 
     /**
      * @return array|CredentialsConfigInterface[]|CredentialsCreditCardConfigInterface[]
+     * @throws Exception\InvalidPaymentMethodException
+     * @throws Exception\MissedCredentialsException
      * @since 1.0.0
      */
-    public function getCredentials()
+    public function getConfig()
     {
-        return $this->credentialsConfig;
+        if (empty($this->config)) {
+            $this->config = (new ConfigFactory())->createConfigList(
+                $this->reader->toArray()
+            );
+        }
+        return $this->config;
     }
 }

@@ -28,7 +28,7 @@ try {
         $paypalPaymentMethod = $paymentMethodRegistry->getPaymentMethod(
             Credentials\PaymentMethodRegistry::TYPE_PAYPAL
         );
-        $paypal = $module->getCredentialsByPaymentMethod($paypalPaymentMethod);
+        $paypal = $module->getConfigByPaymentMethod($paypalPaymentMethod);
         print_r($paypal->getMerchantAccountId() . PHP_EOL);
         print_r($paypal->getBaseUrl() . PHP_EOL);
     }
@@ -39,7 +39,7 @@ try {
         $creditCardPaymentMethod =  $paymentMethodRegistry->getPaymentMethod(
             Credentials\PaymentMethodRegistry::TYPE_CREDIT_CARD
         );
-        $creditCard = $module->getCredentialsByPaymentMethod($creditCardPaymentMethod);
+        $creditCard = $module->getConfigByPaymentMethod($creditCardPaymentMethod);
         print_r($creditCard->getThreeDMerchantAccountId() . PHP_EOL);
         print_r($creditCard->getThreeDSecret() . PHP_EOL);
         print_r($creditCard->getWppUrl() . PHP_EOL);
@@ -49,7 +49,7 @@ try {
     exit(0);
 }
 
-$credentials = $module->getCredentials();
+$credentials = $module->getConfig();
 print_r("Iterate Credentials\n");
 foreach ($credentials as $paymentMethod => $credentialsConfig) {
     print_r($paymentMethod . " => " . $credentialsConfig->getMerchantAccountId() . PHP_EOL);

@@ -25,22 +25,14 @@ class XMLReader implements ReaderInterface
      */
     private $rawXML;
 
-
-    /**
-     * @var PaymentMethodRegistry
-     */
-    private $pmRegistry;
-
     /**
      * XMLReader constructor.
      * @param string $data
-     * @param PaymentMethodRegistry $registry
      * @throws InvalidXMLFormatException
      * @since 1.0.0
      */
-    public function __construct($data, PaymentMethodRegistry $registry)
+    public function __construct($data)
     {
-        $this->pmRegistry = $registry;
         $this->rawXML = $data;
         try {
             if (!$this->validate()) {
@@ -86,7 +78,6 @@ class XMLReader implements ReaderInterface
 
 
     /**
-     * @throws InvalidPaymentMethodException
      * @since 1.0.0
      */
     public function toArray()
@@ -94,8 +85,7 @@ class XMLReader implements ReaderInterface
         $credentials = [];
         $xml = (array)simplexml_load_string($this->getRawXML());
         foreach ($xml as $paymentMethod => $credentialItem) {
-            $credentials[(string)$this->pmRegistry->getPaymentMethod($paymentMethod)]
-                = (array)$credentialItem;
+            $credentials[$paymentMethod] = (array)$credentialItem;
         }
 
         return $credentials;

@@ -63,49 +63,10 @@ class PaymentMethodRegistry
     const TYPE_MASTERPASS = "masterpass";
 
     /**
-     * @var array | PaymentMethod[]
-     */
-    private $registry = [];
-
-    /**
-     * PaymentMethodRegistry constructor.
-     * @throws Exception\InvalidPaymentMethodException
-     */
-    public function __construct()
-    {
-        $this->initializeRegistry();
-    }
-
-    /**
-     * @return void
-     * @throws Exception\InvalidPaymentMethodException
-     */
-    private function initializeRegistry()
-    {
-        foreach ($this->availablePaymentMethods() as $paymentMethod) {
-            $this->registry[$paymentMethod] = new PaymentMethod($paymentMethod, $this);
-        }
-    }
-
-    /**
-     * @param string $paymentMethod
-     * @return PaymentMethod
-     * @throws Exception\InvalidPaymentMethodException
-     * @since 1.0.0
-     */
-    public function getPaymentMethod($paymentMethod)
-    {
-        if (!isset($this->registry[$paymentMethod])) {
-            $this->registry[$paymentMethod] = new PaymentMethod($paymentMethod, $this);
-        }
-        return $this->registry[$paymentMethod];
-    }
-
-    /**
      * @return array
      * @since 1.0.0
      */
-    public function availablePaymentMethods()
+    public static function availablePaymentMethods()
     {
         return [
             self::TYPE_CREDIT_CARD,
@@ -122,15 +83,5 @@ class PaymentMethodRegistry
             self::TYPE_SEPA_DIRECT_DEBIT,
             self::TYPE_MASTERPASS
         ];
-    }
-
-    /**
-     * @param string $type
-     * @return bool
-     * @since 1.0.0
-     */
-    public function hasPaymentMethod($type)
-    {
-        return in_array($type, $this->availablePaymentMethods(), true);
     }
 }
