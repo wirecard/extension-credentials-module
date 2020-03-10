@@ -82,9 +82,9 @@ class ConfigFactoryTest extends TestCase
             CredentialsCreditCardConfig::class
         ];
 
-        $availablePaymentMethodList = PaymentMethodRegistry::availablePaymentMethods();
-        array_shift($availablePaymentMethodList);
-        foreach ($availablePaymentMethodList as $paymentMethod) {
+        $paymentMethodList = PaymentMethodRegistry::availablePaymentMethods();
+        array_shift($paymentMethodList);
+        foreach ($paymentMethodList as $paymentMethod) {
             yield "create default config {$paymentMethod}" => [
                 new PaymentMethod($paymentMethod),
                 $this->getDefaultConfigCredentials(),
