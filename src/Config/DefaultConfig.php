@@ -3,7 +3,6 @@
 namespace Credentials\Config;
 
 use Credentials\Exception\MissedCredentialsException;
-use Credentials\PaymentMethod;
 
 /**
  * Class DefaultConfig

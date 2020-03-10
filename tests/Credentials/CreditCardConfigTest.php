@@ -6,10 +6,7 @@ use Credentials\Config\CredentialsConfigInterface;
 use Credentials\Config\CredentialsCreditCardConfig;
 use Credentials\Config\CreditCardConfig;
 use Credentials\Config\DefaultConfig;
-use Credentials\Exception\InvalidPaymentMethodException;
 use Credentials\Exception\MissedCredentialsException;
-use Credentials\PaymentMethod;
-use Credentials\PaymentMethodRegistry;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -45,17 +42,11 @@ class CreditCardConfigTest extends TestCase
      * @covers ::getThreeDMerchantAccountId
      * @covers ::getWppUrl
      * @throws MissedCredentialsException
-     * @throws InvalidPaymentMethodException
      */
     public function testConstructor()
     {
-        $pMethodRegistry = new PaymentMethodRegistry();
         $credentials = $this->getDefaultCredentials();
-        $paymentMethod = new PaymentMethod(
-            PaymentMethodRegistry::TYPE_CREDIT_CARD,
-            $pMethodRegistry
-        );
-        $creditCardConfig = new CreditCardConfig($paymentMethod, $credentials);
+        $creditCardConfig = new CreditCardConfig($credentials);
         $this->assertEquals($credentials[CreditCardConfig::ATTRIBUTE_BASE_URL], $creditCardConfig->getBaseUrl());
         $this->assertEquals(
             $credentials[CreditCardConfig::ATTRIBUTE_MERCHANT_ACCOUNT_ID],
@@ -77,24 +68,19 @@ class CreditCardConfigTest extends TestCase
         $this->assertInstanceOf(CredentialsCreditCardConfig::class, $creditCardConfig);
         $this->assertInstanceOf(CredentialsConfigInterface::class, $creditCardConfig);
         $this->expectException(MissedCredentialsException::class);
-        new CreditCardConfig($paymentMethod, []);
+        new CreditCardConfig([]);
     }
 
     /**
      * @group unit
      * @small
      * @covers ::toArray
-     * @throws InvalidPaymentMethodException
      * @throws MissedCredentialsException
      */
     public function testToArray()
     {
-        $pMethodRegistry = new PaymentMethodRegistry();
         $credentials = $this->getDefaultCredentials();
-        $paymentMethod = $pMethodRegistry->getPaymentMethod(
-            PaymentMethodRegistry::TYPE_CREDIT_CARD
-        );
-        $creditCardConfig = new CreditCardConfig($paymentMethod, $credentials);
+        $creditCardConfig = new CreditCardConfig($credentials);
         $this->assertEquals($credentials, $creditCardConfig->toArray());
     }
 }

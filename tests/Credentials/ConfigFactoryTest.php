@@ -32,10 +32,10 @@ class ConfigFactoryTest extends TestCase
      */
     public function testCreateConfigException()
     {
-        $pmRegistry = new PaymentMethodRegistry();
+        $factory = new ConfigFactory();
 
         $this->expectException(MissedCredentialsException::class);
-        $factory->createConfig($pmRegistry->getPaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD), []);
+        $factory->createConfig(new PaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD), []);
         $this->expectException(InvalidPaymentMethodException::class);
         $factory->createConfig("InvalidType", []);
     }
@@ -75,20 +75,18 @@ class ConfigFactoryTest extends TestCase
      */
     public function createConfigDataProvider()
     {
-        $pmRegistry = new PaymentMethodRegistry();
-
         yield "create credit card config" => [
-            $pmRegistry->getPaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD),
+            new PaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD),
             $this->getCreditCardConfigCredentials(),
             CreditCardConfig::class,
             CredentialsCreditCardConfig::class
         ];
 
-        $availablePaymentMethodList = (new PaymentMethodRegistry())->availablePaymentMethods();
+        $availablePaymentMethodList = PaymentMethodRegistry::availablePaymentMethods();
         array_shift($availablePaymentMethodList);
         foreach ($availablePaymentMethodList as $paymentMethod) {
             yield "create default config {$paymentMethod}" => [
-                $pmRegistry->getPaymentMethod($paymentMethod),
+                new PaymentMethod($paymentMethod),
                 $this->getDefaultConfigCredentials(),
                 DefaultConfig::class,
                 CredentialsConfigInterface::class
@@ -105,13 +103,11 @@ class ConfigFactoryTest extends TestCase
      * @param array $credentials
      * @param string $configClass
      * @param string $configInterface
-     * @throws InvalidPaymentMethodException
      * @throws MissedCredentialsException
      */
     public function testCreateConfig($paymentMethod, $credentials, $configClass, $configInterface)
     {
-        $registry = new PaymentMethodRegistry();
-        $factory = new ConfigFactory($registry);
+        $factory = new ConfigFactory();
         $config = $factory->createConfig($paymentMethod, $credentials);
         $this->assertInstanceOf($configClass, $config);
         $this->assertInstanceOf($configInterface, $config);
@@ -126,8 +122,7 @@ class ConfigFactoryTest extends TestCase
      */
     public function testCreateConfigList()
     {
-        $pMethodRegistry = new PaymentMethodRegistry();
-        $factory = new ConfigFactory($pMethodRegistry);
+        $factory = new ConfigFactory();
 
         $result = $factory->createConfigList([
             PaymentMethodRegistry::TYPE_CREDIT_CARD => $this->getCreditCardConfigCredentials(),

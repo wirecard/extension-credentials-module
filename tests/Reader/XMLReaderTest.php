@@ -2,9 +2,7 @@
 
 namespace CredentialsReaderTest\Reader;
 
-use Credentials\Exception\InvalidPaymentMethodException;
 use Credentials\Exception\InvalidXMLFormatException;
-use Credentials\PaymentMethodRegistry;
 use Credentials\Reader\XMLReader;
 use PHPUnit\Framework\TestCase;
 use Generator;
@@ -83,13 +81,11 @@ class XMLReaderTest extends TestCase
      * @param string $data
      * @param array $expectedResult
      * @throws InvalidXMLFormatException
-     * @throws InvalidPaymentMethodException
      */
     public function testToArray($data, $expectedResult)
     {
-        $registry = new PaymentMethodRegistry();
         /** @var XMLReader | PHPUnit_Framework_MockObject_MockObject $reader */
-        $reader = new XMLReader($data, $registry);
+        $reader = new XMLReader($data);
         $this->assertEquals($expectedResult, $reader->toArray());
     }
 
@@ -98,18 +94,16 @@ class XMLReaderTest extends TestCase
      * @small
      * @covers ::validate
      * @throws InvalidXMLFormatException
-     * @throws InvalidPaymentMethodException
      */
     public function testValidate()
     {
         $testXMLString = $this->getSampleXMLRawData();
-        $registry = new PaymentMethodRegistry();
-        new XMLReader($testXMLString, $registry);
-        new XMLReader('<?xml version="1.0" encoding="utf-8"?><config/>', $registry);
+        new XMLReader($testXMLString);
+        new XMLReader('<?xml version="1.0" encoding="utf-8"?><config/>');
         $this->expectException(InvalidXMLFormatException::class);
         new XMLReader('<?xml version="1.0" encoding="utf-8"?><config><invalid_payment_type>
-                            </invalid_payment_type></config>', $registry);
+                            </invalid_payment_type></config>');
         $this->expectException(InvalidXMLFormatException::class);
-        new XMLReader('<?xml version="1.0" encoding="utf-8"?><configs></configs>', $registry);
+        new XMLReader('<?xml version="1.0" encoding="utf-8"?><configs></configs>');
     }
 }

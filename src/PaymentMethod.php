@@ -20,6 +20,7 @@ class PaymentMethod
      * PaymentMethod constructor.
      * @param string $paymentMethod
      * @throws InvalidPaymentMethodException
+     * @SuppressWarnings(PHPMD.StaticAccess)
      * @since 1.0.0
      */
     public function __construct($paymentMethod)

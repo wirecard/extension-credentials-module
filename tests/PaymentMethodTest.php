@@ -74,10 +74,11 @@ class PaymentMethodTest extends TestCase
      * @small
      * @dataProvider dataProviderInvalidTypeValues
      * @param mixed $invalidValue
-     * @expectedException \Credentials\Exception\InvalidPaymentMethodException
+     * @throws InvalidPaymentMethodException
      */
     public function testConstructorException($invalidValue)
     {
+        $this->expectException(InvalidPaymentMethodException::class);
         new PaymentMethod($invalidValue);
     }
 

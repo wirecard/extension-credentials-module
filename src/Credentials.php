@@ -7,6 +7,7 @@ use Credentials\Config\CredentialsConfigInterface;
 use Credentials\Config\CredentialsContainer;
 use Credentials\Config\CredentialsCreditCardConfig;
 use Credentials\Reader\XMLReader;
+use RuntimeException;
 
 /**
  * Class Credentials
@@ -34,7 +35,7 @@ class Credentials
     public function __construct($credentialsFilePath)
     {
         if (!is_readable($credentialsFilePath)) {
-            throw new \RuntimeException("File is not readable: " . $credentialsFilePath);
+            throw new RuntimeException("File is not readable: " . $credentialsFilePath);
         }
         $this->reader = new XMLReader(
             file_get_contents($credentialsFilePath)

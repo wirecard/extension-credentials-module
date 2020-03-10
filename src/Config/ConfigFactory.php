@@ -55,8 +55,9 @@ class ConfigFactory
      */
     public function createConfigList(array $credentials)
     {
+
         $configList = [];
-        foreach (PaymentMethodRegistry::availablePaymentMethods() as $paymentMethodCode) {
+        foreach (array_keys($credentials) as $paymentMethodCode) {
             $paymentMethod = new PaymentMethod($paymentMethodCode);
             $configList[$paymentMethodCode] = $this->createConfig($paymentMethod, $credentials[$paymentMethodCode]);
         }
