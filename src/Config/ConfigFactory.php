@@ -15,11 +15,10 @@ use Credentials\Exception\MissedCredentialsException;
  */
 class ConfigFactory
 {
-
     /**
      * @var PaymentMethod
      */
-    private $referenceCreditCard;
+    private $creditCardPaymentMethod;
 
     /**
      * ConfigFactory constructor.
@@ -27,7 +26,7 @@ class ConfigFactory
      */
     public function __construct()
     {
-        $this->referenceCreditCard = new PaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD);
+        $this->creditCardPaymentMethod = new PaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD);
     }
 
     /**
@@ -39,7 +38,7 @@ class ConfigFactory
      */
     public function createConfig(PaymentMethod $paymentMethod, array $credentials)
     {
-        if ($paymentMethod->equalsTo($this->referenceCreditCard)) {
+        if ($paymentMethod->equalsTo($this->creditCardPaymentMethod)) {
             return new CreditCardConfig($credentials);
         }
 
