@@ -19,21 +19,12 @@ use PHPUnit\Framework\TestCase;
 class PaymentMethodTest extends TestCase
 {
     /**
-     * @var PaymentMethodRegistry
-     */
-    private $registry;
-
-    protected function setUp()
-    {
-        $this->registry = new PaymentMethodRegistry();
-    }
-
-    /**
      * @return Generator
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function dataProviderAvailablePaymentMethods()
     {
-        foreach ((new PaymentMethodRegistry())->availablePaymentMethods() as $pm) {
+        foreach (PaymentMethodRegistry::availablePaymentMethods() as $pm) {
             yield $pm => [$pm];
         }
     }

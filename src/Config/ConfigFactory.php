@@ -54,7 +54,6 @@ class ConfigFactory
      */
     public function createConfigList(array $credentials)
     {
-
         $configList = [];
         foreach (array_keys($credentials) as $paymentMethodCode) {
             $paymentMethod = new PaymentMethod($paymentMethodCode);
