@@ -3,7 +3,7 @@
 namespace CredentialsTest\Credentials;
 
 use Credentials\Config\CredentialsConfigInterface;
-use Credentials\Config\CredentialsCreditCardConfigInterface;
+use Credentials\Config\CredentialsCreditCardConfig;
 use Credentials\PaymentMethod;
 use Credentials\PaymentMethodRegistry;
 use Credentials\Config\ConfigFactory;
@@ -33,7 +33,6 @@ class ConfigFactoryTest extends TestCase
     public function testCreateConfigException()
     {
         $pmRegistry = new PaymentMethodRegistry();
-        $factory = new ConfigFactory($pmRegistry);
 
         $this->expectException(MissedCredentialsException::class);
         $factory->createConfig($pmRegistry->getPaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD), []);
@@ -82,7 +81,7 @@ class ConfigFactoryTest extends TestCase
             $pmRegistry->getPaymentMethod(PaymentMethodRegistry::TYPE_CREDIT_CARD),
             $this->getCreditCardConfigCredentials(),
             CreditCardConfig::class,
-            CredentialsCreditCardConfigInterface::class
+            CredentialsCreditCardConfig::class
         ];
 
         $availablePaymentMethodList = (new PaymentMethodRegistry())->availablePaymentMethods();

@@ -8,7 +8,7 @@ namespace Credentials\Config;
  * @SuppressWarnings(PHPMD.LongVariable)
  * @since 1.0.0
  */
-class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardConfigInterface
+class CreditCardConfig extends DefaultConfig implements CredentialsCreditCardConfig
 {
     /**
      * @var string

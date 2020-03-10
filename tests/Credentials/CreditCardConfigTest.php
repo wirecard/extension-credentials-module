@@ -3,7 +3,7 @@
 namespace CredentialsTest\Reader;
 
 use Credentials\Config\CredentialsConfigInterface;
-use Credentials\Config\CredentialsCreditCardConfigInterface;
+use Credentials\Config\CredentialsCreditCardConfig;
 use Credentials\Config\CreditCardConfig;
 use Credentials\Config\DefaultConfig;
 use Credentials\Exception\InvalidPaymentMethodException;
@@ -74,7 +74,7 @@ class CreditCardConfigTest extends TestCase
             $creditCardConfig->getThreeDMerchantAccountId()
         );
         $this->assertInstanceOf(CreditCardConfig::class, $creditCardConfig);
-        $this->assertInstanceOf(CredentialsCreditCardConfigInterface::class, $creditCardConfig);
+        $this->assertInstanceOf(CredentialsCreditCardConfig::class, $creditCardConfig);
         $this->assertInstanceOf(CredentialsConfigInterface::class, $creditCardConfig);
         $this->expectException(MissedCredentialsException::class);
         new CreditCardConfig($paymentMethod, []);

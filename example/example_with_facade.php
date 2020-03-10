@@ -18,8 +18,8 @@ try {
     $config = $module->getConfigByPaymentMethod($paymentMethod);
     print_r($config->getBaseUrl() . PHP_EOL);
     print_r($config->getMerchantAccountId(). PHP_EOL);
-} catch (Exception $ex) {
-    print_r($e->getMessage() . PHP_EOL);
+} catch (\Exception $ex) {
+    print_r($ex->getMessage() . PHP_EOL);
     exit(0);
 }
 
@@ -29,5 +29,6 @@ try {
         print_r($paymentMethod . ":" . $config->getMerchantAccountId(). PHP_EOL);
     }
 } catch (\Exception $e) {
-    ///
+    print_r($e->getMessage() . PHP_EOL);
+    exit(0);
 }

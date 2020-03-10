@@ -4,7 +4,8 @@ namespace Credentials;
 
 use Credentials\Config\ConfigFactory;
 use Credentials\Config\CredentialsConfigInterface;
-use Credentials\Config\CredentialsCreditCardConfigInterface;
+use Credentials\Config\CredentialsContainer;
+use Credentials\Config\CredentialsCreditCardConfig;
 use Credentials\Reader\XMLReader;
 
 /**
@@ -20,7 +21,7 @@ class Credentials
     private $reader;
 
     /**
-     * @var array|CredentialsConfigInterface[]|CredentialsCreditCardConfigInterface[]
+     * @var array|CredentialsConfigInterface[]|CredentialsCreditCardConfig[]
      */
     private $config = [];
 
@@ -42,7 +43,7 @@ class Credentials
 
     /**
      * @param PaymentMethod | string $paymentMethod
-     * @return CredentialsConfigInterface|CredentialsCreditCardConfigInterface
+     * @return CredentialsConfigInterface|CredentialsCreditCardConfig
      * @throws Exception\InvalidPaymentMethodException
      * @throws Exception\MissedCredentialsException
      * @since 1.0.0
@@ -54,7 +55,7 @@ class Credentials
     }
 
     /**
-     * @return array|CredentialsConfigInterface[]|CredentialsCreditCardConfigInterface[]
+     * @return CredentialsConfigInterface[]|CredentialsCreditCardConfig[]|CredentialsContainer[]
      * @throws Exception\InvalidPaymentMethodException
      * @throws Exception\MissedCredentialsException
      * @since 1.0.0

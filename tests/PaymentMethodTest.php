@@ -30,7 +30,6 @@ class PaymentMethodTest extends TestCase
 
     /**
      * @return Generator
-     * @throws InvalidPaymentMethodException
      */
     public function dataProviderAvailablePaymentMethods()
     {
@@ -49,7 +48,7 @@ class PaymentMethodTest extends TestCase
      */
     public function testConstructor($value)
     {
-        $paymentMethod = new PaymentMethod($value, $this->registry);
+        $paymentMethod = new PaymentMethod($value);
         $this->assertInstanceOf(PaymentMethod::class, $paymentMethod);
         $this->assertEquals($value, $paymentMethod->getValue());
         $this->assertEquals($value, (string)$paymentMethod);
@@ -75,12 +74,11 @@ class PaymentMethodTest extends TestCase
      * @small
      * @dataProvider dataProviderInvalidTypeValues
      * @param mixed $invalidValue
-     * @throws InvalidPaymentMethodException
+     * @expectedException \Credentials\Exception\InvalidPaymentMethodException
      */
     public function testConstructorException($invalidValue)
     {
-        $this->expectException(InvalidPaymentMethodException::class);
-        new PaymentMethod($invalidValue, $this->registry);
+        new PaymentMethod($invalidValue);
     }
 
     /**
@@ -91,8 +89,8 @@ class PaymentMethodTest extends TestCase
      */
     public function testEqualsTo()
     {
-        $paymentMethod = new PaymentMethod(PaymentMethodRegistry::TYPE_IDEAL, $this->registry);
-        $this->assertTrue($paymentMethod->equalsTo(PaymentMethodRegistry::TYPE_IDEAL));
-        $this->assertFalse($paymentMethod->equalsTo(PaymentMethodRegistry::TYPE_SOFORTBANKING));
+        $paymentMethod = new PaymentMethod(PaymentMethodRegistry::TYPE_IDEAL);
+        $this->assertTrue($paymentMethod->equalsTo(new PaymentMethod(PaymentMethodRegistry::TYPE_IDEAL)));
+        $this->assertFalse($paymentMethod->equalsTo(new PaymentMethod(PaymentMethodRegistry::TYPE_SOFORTBANKING)));
     }
 }
