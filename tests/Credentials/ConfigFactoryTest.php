@@ -72,6 +72,7 @@ class ConfigFactoryTest extends TestCase
     /**
      * @return Generator
      * @throws InvalidPaymentMethodException
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function createConfigDataProvider()
     {
