@@ -33,7 +33,6 @@ class PaymentMethodTest extends TestCase
      * @group unit
      * @small
      * @dataProvider dataProviderAvailablePaymentMethods
-     * @covers ::getValue
      * @param string $value
      * @throws InvalidPaymentMethodException
      */
@@ -41,7 +40,7 @@ class PaymentMethodTest extends TestCase
     {
         $paymentMethod = new PaymentMethod($value);
         $this->assertInstanceOf(PaymentMethod::class, $paymentMethod);
-        $this->assertEquals($value, $paymentMethod->getValue());
+        $this->assertEquals($value, (string)$paymentMethod);
         $this->assertEquals($value, (string)$paymentMethod);
     }
 

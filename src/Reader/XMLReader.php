@@ -45,15 +45,6 @@ class XMLReader implements ReaderInterface
      * @return string
      * @since 1.0.0
      */
-    public function getRawXML()
-    {
-        return $this->rawXML;
-    }
-
-    /**
-     * @return string
-     * @since 1.0.0
-     */
     private function getXMLSchemaPath()
     {
         return sprintf(
@@ -70,7 +61,7 @@ class XMLReader implements ReaderInterface
     private function validate()
     {
         $dom = new DOMDocument();
-        $dom->loadXML($this->getRawXML());
+        $dom->loadXML($this->rawXML);
         return $dom->schemaValidate($this->getXMLSchemaPath());
     }
 
@@ -81,7 +72,7 @@ class XMLReader implements ReaderInterface
     public function toArray()
     {
         $credentials = [];
-        $xml = (array)simplexml_load_string($this->getRawXML());
+        $xml = (array)simplexml_load_string($this->rawXML);
         foreach ($xml as $paymentMethod => $credentialItem) {
             $credentials[$paymentMethod] = (array)$credentialItem;
         }

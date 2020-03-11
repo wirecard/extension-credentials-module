@@ -35,18 +35,9 @@ class PaymentMethod
      * @return string
      * @since 1.0.0
      */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return string
-     * @since 1.0.0
-     */
     public function __toString()
     {
-        return $this->getValue();
+        return $this->value;
     }
 
     /**

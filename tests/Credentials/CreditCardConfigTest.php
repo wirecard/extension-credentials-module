@@ -67,6 +67,15 @@ class CreditCardConfigTest extends TestCase
         $this->assertInstanceOf(CreditCardConfig::class, $creditCardConfig);
         $this->assertInstanceOf(CredentialsCreditCardConfig::class, $creditCardConfig);
         $this->assertInstanceOf(CredentialsConfigInterface::class, $creditCardConfig);
+    }
+
+    /**
+     * @group unit
+     * @small
+     * @throws MissedCredentialsException
+     */
+    public function testConstructorException()
+    {
         $this->expectException(MissedCredentialsException::class);
         new CreditCardConfig([]);
     }
