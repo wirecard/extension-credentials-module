@@ -5,6 +5,8 @@ namespace Credentials\Reader;
 use Credentials\PaymentMethodRegistry;
 use Credentials\Exception\InvalidXMLFormatException;
 use Exception;
+use DOMDocument;
+use DOMXPath;
 
 /**
  * Class XMLReader
@@ -60,7 +62,7 @@ class XMLReader implements ReaderInterface
      */
     private function validate()
     {
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadXML($this->rawXML);
         return $dom->schemaValidate($this->getXMLSchemaPath());
     }
@@ -68,17 +70,19 @@ class XMLReader implements ReaderInterface
 
     /**
      * @since 1.0.0
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function toArray()
     {
         $credentials = [];
-        $domDocument = new \DOMDocument();
+        $domDocument = new DOMDocument();
         $domDocument->loadXML($this->rawXML);
-        $xPath = new \DOMXPath($domDocument);
+        $xPath = new DOMXPath($domDocument);
         foreach (PaymentMethodRegistry::availablePaymentMethods() as $paymentMethod) {
-            if (!$paymentMethodXPath = $xPath->query(
+            $paymentMethodXPath = $xPath->query(
                 "/config/payment_methods/{$paymentMethod}"
-            )->item(0)) {
+            )->item(0);
+            if (!$paymentMethodXPath) {
                 continue;
             }
             /** @var \DOMNode $child */
