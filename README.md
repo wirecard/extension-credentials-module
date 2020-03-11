@@ -1,2 +1,2 @@
-# extentions-credentials-module
+# extensions-credentials-module
 Module used in shop extentions to read/load default credentials
