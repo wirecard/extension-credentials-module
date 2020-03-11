@@ -1,6 +1,7 @@
 {
     "name": "wirecard/extension-credentials-module",
     "description": "Module used in shop extentions to read/load default credentials",
+    "license": "MIT",
     "require": {
         "php": "*"
     }
