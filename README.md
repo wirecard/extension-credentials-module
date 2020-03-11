@@ -1,11 +1,11 @@
 # Credentials Module
 
-Read credentials from xml file based on schema.xsd schema template and generate configuration 
-object per payment method.
+This module is meant for reading out credentials from xml file based on schema.xsd template and generating of configuration
+objects per payment method.
 
 ## How to setup
 
-Using composer install the package
+Using composer to install the package
 ````
 composer require wirecard/extentions-credentials-module
 ````
@@ -23,33 +23,34 @@ tests/               unit tests
 
 ### src/Credentials.php
 
-The ```Credentials.php``` file is Facade and entry point to project.
+The ```Credentials.php``` file is the facade and entry point to project.
 
 ````
 $xmlFilePath = "credentials.xml";
 $credentials = Credentials\Credentials($xmlFilePath);
 ````
 
-By initiating of ````Credentials```` facade we should pass in constructor path to 
-credentials xml file based on schema.xsd provided in the root of the project.
-It will bw generated list of config object with credentials per payment 
-method provided in the file.
-````Credentials```` facade provides to methods.
+When the ````Credentials```` facade is initialized, the path to
+credentials.xml needs to be passed in constructor.
+It will result in a generated list of config objects with credentials per payment
+method.
+````Credentials```` facade provides two methods:
 - getConfigByPaymentMethod(PaymentMethod $paymentMethod)
-  - Gets credentials config by payment method. As parameter it should be used 
+  - Gets credentials config by payment method.
   `````PaymentMethod````` ValueObject
+    should be used as the parameter.
 - getConfig()
-  - Returns list of credentials configs in format
+  - Returns list of credentials configs in format:
    ````
-  [sepadirectdebit] => CredentialsConfigInterface | CredentialsCreditCardConfig
+  [payment method] => CredentialsConfigInterface | CredentialsCreditCardConfig
   ````
 
 ### Reader
 
-The ````Reader```` folder contains the ```XMLReader``` to be able read XML format.
-````validate()```` method as a part of the ````ReaderInterface```` and checks file through the ````schema.xsd````.
-In the future it should be able implement ````ReaderInterface```` and adapt constructor 
-of ````Credentials```` facade to read different formats like JSON / YAML and etc.
+The ````Reader```` folder contains the ```XMLReader``` which enables reading of XML format.
+````validate()```` method is part of the ````ReaderInterface```` and checks the XML file via the ````schema.xsd````.
+In the future it should be able to implement ````ReaderInterface```` and adapt constructor
+of ````Credentials```` facade to read other formats like JSON / YAML and etc.
 
 ### Exception
 
@@ -57,9 +58,9 @@ The ````Exception```` folder contains all the defined exceptions used in the pro
 
 ### Config
 
-The ````Config```` folder contains Config classes
-(based on ````CredentialsConfigInterface````|````CredentialsCreditCardConfig```` interfaces) which will be generated based on data received 
-from a reader or just an array of data.
+The ````Config```` folder contains config classes
+(based on ````CredentialsConfigInterface````|````CredentialsCreditCardConfig```` interfaces).
+It will be generated from the data received from a reader or just an array of data.
 
 * DefaultConfig
   * getBaseUrl()
@@ -72,5 +73,4 @@ from a reader or just an array of data.
   * getThreeDMerchantAccountId()
   * getThreeDSecret()
 
-Usually you could have wrapped values of the object back in array format.
-For this purposes you should use ````toArray```` method.
+Should data be required in array format, the ````toArray```` method can be used.
