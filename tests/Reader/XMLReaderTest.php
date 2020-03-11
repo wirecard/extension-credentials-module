@@ -22,25 +22,27 @@ class XMLReaderTest extends TestCase
     private function getSampleXMLRawData()
     {
         return '<?xml version="1.0" encoding="utf-8"?>
-                <config 
-                >
-                    <creditcard>
-                        <merchant_account_id>merchant_account_id</merchant_account_id>
-                        <secret>secret</secret>
-                        <base_url>https://api-test.wirecard.com</base_url>
-                        <http_user>user</http_user>
-                        <http_pass>password</http_pass>
-                        <wpp_url>https://wpp-test.wirecard.com</wpp_url>
-                        <three_d_merchant_account_id>three_d_merchant_account_id</three_d_merchant_account_id>
-                        <three_d_secret>three_d_secret</three_d_secret>
-                    </creditcard>
-                    <paypal>
-                        <merchant_account_id>merchant_account_id</merchant_account_id>
-                        <secret>secret</secret>
-                        <base_url>https://api-test.wirecard.com</base_url>
-                        <http_user>user</http_user>
-                        <http_pass>password</http_pass>
-                    </paypal>
+                <config>
+                    <payment_methods>
+                         <creditcard name="Credit Card">
+                            <merchant_account_id>merchant_account_id</merchant_account_id>
+                            <secret>secret</secret>
+                            <base_url>https://api-test.wirecard.com</base_url>
+                            <http_user>user</http_user>
+                            <http_pass>password</http_pass>
+                            <wpp_url>https://wpp-test.wirecard.com</wpp_url>
+                            <three_d_merchant_account_id>three_d_merchant_account_id</three_d_merchant_account_id>
+                            <three_d_secret>three_d_secret</three_d_secret>
+                        </creditcard>
+                        <paypal name="PayPal">
+                            <merchant_account_id>merchant_account_id</merchant_account_id>
+                            <secret>secret</secret>
+                            <base_url>https://api-test.wirecard.com</base_url>
+                            <http_user>user</http_user>
+                            <http_pass>password</http_pass>
+                        </paypal>
+                    </payment_methods>
+
                 </config>
             ';
     }
@@ -99,7 +101,7 @@ class XMLReaderTest extends TestCase
     {
         $testXMLString = $this->getSampleXMLRawData();
         new XMLReader($testXMLString);
-        new XMLReader('<?xml version="1.0" encoding="utf-8"?><config/>');
+        new XMLReader('<?xml version="1.0" encoding="utf-8"?><config><payment_methods></payment_methods></config>');
         $this->expectException(InvalidXMLFormatException::class);
         new XMLReader('<?xml version="1.0" encoding="utf-8"?><config><invalid_payment_type>
                             </invalid_payment_type></config>');

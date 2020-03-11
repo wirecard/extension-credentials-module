@@ -15,6 +15,7 @@
             <xs:element name="http_user" type="xs:string"/>
             <xs:element name="http_pass" type="xs:string"/>
         </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="CreditCardConfig">
@@ -32,19 +33,25 @@
     <xs:element name="config">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="creditcard" type="CreditCardConfig" minOccurs="0"/>
-                <xs:element name="paypal" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="sofortbanking" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="alipay-xborder" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="ideal" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="wiretransfer" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="ratepay-invoice" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="eps" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="giropay" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="zapp" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="sepacredit" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="sepadirectdebit" type="PaymentMethodConfig" minOccurs="0"/>
-                <xs:element name="masterpass" type="PaymentMethodConfig" minOccurs="0"/>
+                <xs:element name="payment_methods">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="creditcard" type="CreditCardConfig" minOccurs="0"/>
+                            <xs:element name="paypal" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="sofortbanking" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="alipay-xborder" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="ideal" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="wiretransfer" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="ratepay-invoice" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="eps" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="giropay" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="zapp" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="sepacredit" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="sepadirectdebit" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="masterpass" type="PaymentMethodConfig" minOccurs="0"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

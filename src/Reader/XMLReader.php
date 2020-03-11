@@ -2,7 +2,7 @@
 
 namespace Credentials\Reader;
 
-use DOMDocument;
+use Credentials\PaymentMethodRegistry;
 use Credentials\Exception\InvalidXMLFormatException;
 use Exception;
 
@@ -60,7 +60,7 @@ class XMLReader implements ReaderInterface
      */
     private function validate()
     {
-        $dom = new DOMDocument();
+        $dom = new \DOMDocument();
         $dom->loadXML($this->rawXML);
         return $dom->schemaValidate($this->getXMLSchemaPath());
     }
@@ -72,9 +72,22 @@ class XMLReader implements ReaderInterface
     public function toArray()
     {
         $credentials = [];
-        $xml = (array)simplexml_load_string($this->rawXML);
-        foreach ($xml as $paymentMethod => $credentialItem) {
-            $credentials[$paymentMethod] = (array)$credentialItem;
+        $domDocument = new \DOMDocument();
+        $domDocument->loadXML($this->rawXML);
+        $xPath = new \DOMXPath($domDocument);
+        foreach (PaymentMethodRegistry::availablePaymentMethods() as $paymentMethod) {
+            if (!$paymentMethodXPath = $xPath->query(
+                "/config/payment_methods/{$paymentMethod}"
+            )->item(0)) {
+                continue;
+            }
+            /** @var \DOMNode $child */
+            foreach ($paymentMethodXPath->childNodes as $child) {
+                if ($child->nodeType != XML_ELEMENT_NODE) {
+                    continue;
+                }
+                $credentials[$paymentMethod][$child->nodeName] = $child->nodeValue;
+            }
         }
 
         return $credentials;
