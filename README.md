@@ -1,7 +1,5 @@
-# Credentials Module
-
-This module is meant for reading out credentials from xml file based on schema.xsd template and generating of configuration
-objects per payment method.
+# extension-credentials-module
+Module used in shop extentions to read/load default credentials
 
 ## How to setup
 
