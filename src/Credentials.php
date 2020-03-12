@@ -6,6 +6,7 @@ use Credentials\Config\ConfigFactory;
 use Credentials\Config\CredentialsConfigInterface;
 use Credentials\Config\CredentialsContainer;
 use Credentials\Config\CredentialsCreditCardConfig;
+use Credentials\Exception\InvalidPaymentMethodException;
 use Credentials\Reader\XMLReader;
 use RuntimeException;
 
@@ -52,7 +53,11 @@ class Credentials
     public function getConfigByPaymentMethod(PaymentMethod $paymentMethod)
     {
         $config = $this->getConfig();
-        return $config[(string)$paymentMethod];
+        $paymentMethodValue = (string)$paymentMethod;
+        if (!isset($config[$paymentMethodValue])) {
+            throw new InvalidPaymentMethodException($paymentMethodValue);
+        }
+        return $config[$paymentMethodValue];
     }
 
     /**
