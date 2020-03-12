@@ -63,6 +63,8 @@ class XMLFileValidatorTest extends TestCase
     {
         $validator = new XMLFileValidator();
         $this->assertEquals($isValid, $validator->validate($filePath));
+        $validator->setThrowError(true);
+        $this->assertEquals($isValid, $validator->validate($filePath));
     }
 
     /**
@@ -73,10 +75,25 @@ class XMLFileValidatorTest extends TestCase
      * @param string $filePath
      * @throws InvalidXMLFormatException
      */
-    public function testValidateInvalid($filePath)
+    public function testInvalidXMLWithoutThrowError($filePath)
+    {
+        $validator = new XMLFileValidator();
+        $this->assertEquals(false, $validator->validate($filePath));
+    }
+
+    /**
+     * @group unit
+     * @small
+     * @covers ::validate
+     * @dataProvider dataProviderInvalid
+     * @param string $filePath
+     * @throws InvalidXMLFormatException
+     */
+    public function testInvalidXMLWithThrowError($filePath)
     {
         $this->expectException(InvalidXMLFormatException::class);
-        $validator = new XMLFileValidator();
-        $validator->validate($filePath);
+        (new XMLFileValidator())
+            ->setThrowError(true)
+            ->validate($filePath);
     }
 }

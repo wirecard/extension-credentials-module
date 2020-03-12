@@ -19,6 +19,19 @@ use Wirecard\Credentials\Exception\InvalidXMLFormatException;
  */
 class XMLFileValidator implements FileValidatorInterface
 {
+    /** @var bool */
+    private $throwError = false;
+
+    /**
+     * @param bool $throwError
+     * @return XMLFileValidator
+     */
+    public function setThrowError($throwError)
+    {
+        $this->throwError = $throwError;
+        return $this;
+    }
+
     /**
      * @var string
      */
@@ -39,19 +52,18 @@ class XMLFileValidator implements FileValidatorInterface
 
     /**
      * @param string $filePath
-     * @param bool $throwError
      * @return bool
      * @throws InvalidXMLFormatException
      * @since 1.0.0
      */
-    public function validate($filePath, $throwError = true)
+    public function validate($filePath)
     {
         try {
             $dom = new DOMDocument();
             $dom->load($filePath);
             $result = $dom->schemaValidate($this->getXMLSchemaPath());
         } catch (Exception $e) {
-            if ($throwError) {
+            if ($this->throwError) {
                 throw new InvalidXMLFormatException($e->getMessage());
             }
             $result = false;

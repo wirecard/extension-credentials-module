@@ -42,7 +42,7 @@ method.
    ````
   [payment method] => CredentialsConfigInterface | CredentialsCreditCardConfig
   ````
-- validateSource($filePath, $throwError = true)
+- validateSource($filePath)
   - Validates source
 
 ### Reader

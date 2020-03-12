@@ -80,12 +80,11 @@ class Credentials
 
     /**
      * @param string $filePath
-     * @param bool $throwError
      * @return bool
      * @throws Exception\InvalidXMLFormatException
      */
-    public function validateSource($filePath, $throwError = true)
+    public function validateSource($filePath)
     {
-        return (new XMLFileValidator())->validate($filePath, $throwError);
+        return (new XMLFileValidator())->validate($filePath);
     }
 }

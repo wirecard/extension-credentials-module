@@ -34,7 +34,10 @@ class XMLReader implements ReaderInterface
      */
     public function __construct($filePath)
     {
-        (new XMLFileValidator())->validate($filePath, true);
+        $xmlFileValidator = new XMLFileValidator();
+        $xmlFileValidator
+            ->setThrowError(true)
+            ->validate($filePath);
         $this->rawXML = file_get_contents($filePath);
     }
 
