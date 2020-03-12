@@ -1,9 +1,16 @@
 <?php
+/**
+ * Shop System Extensions:
+ * - Terms of Use can be found at:
+ * https://github.com/wirecard/extension-credentials-module/blob/master/_TERMS_OF_USE
+ * - License can be found under:
+ * https://github.com/wirecard/extension-credentials-module/blob/master/LICENSE
+ */
 
 namespace CredentialsReaderTest\Reader;
 
-use Credentials\Exception\InvalidXMLFormatException;
-use Credentials\Reader\XMLReader;
+use Wirecard\Credentials\Exception\InvalidXMLFormatException;
+use Wirecard\Credentials\Reader\XMLReader;
 use PHPUnit\Framework\TestCase;
 use Generator;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -11,7 +18,7 @@ use PHPUnit_Framework_MockObject_MockObject;
 /**
  * Class XMLReaderTest
  * @package CredentialsReaderTest\Reader
- * @coversDefaultClass \Credentials\Reader\XMLReader
+ * @coversDefaultClass \Wirecard\Credentials\Reader\XMLReader
  * @since 1.0.0
  */
 class XMLReaderTest extends TestCase

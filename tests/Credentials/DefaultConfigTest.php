@@ -1,16 +1,23 @@
 <?php
+/**
+ * Shop System Extensions:
+ * - Terms of Use can be found at:
+ * https://github.com/wirecard/extension-credentials-module/blob/master/_TERMS_OF_USE
+ * - License can be found under:
+ * https://github.com/wirecard/extension-credentials-module/blob/master/LICENSE
+ */
 
-namespace CredentialsTest\Reader;
+namespace WirecardTest\Reader;
 
-use Credentials\Config\CredentialsConfigInterface;
-use Credentials\Config\DefaultConfig;
-use Credentials\Exception\MissedCredentialsException;
+use Wirecard\Credentials\Config\CredentialsConfigInterface;
+use Wirecard\Credentials\Config\DefaultConfig;
+use Wirecard\Credentials\Exception\MissedCredentialsException;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class DefaultConfigTest
  * @package CredentialsTest\Reader
- * @coversDefaultClass \Credentials\Config\DefaultConfig
+ * @coversDefaultClass \Wirecard\Credentials\Config\DefaultConfig
  * @since 1.0.0
  */
 class DefaultConfigTest extends TestCase

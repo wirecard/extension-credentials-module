@@ -1,9 +1,16 @@
 <?php
+/**
+ * Shop System Extensions:
+ * - Terms of Use can be found at:
+ * https://github.com/wirecard/extension-credentials-module/blob/master/_TERMS_OF_USE
+ * - License can be found under:
+ * https://github.com/wirecard/extension-credentials-module/blob/master/LICENSE
+ */
 
-namespace Credentials\Reader;
+namespace Wirecard\Credentials\Reader;
 
-use Credentials\PaymentMethodRegistry;
-use Credentials\Exception\InvalidXMLFormatException;
+use Wirecard\Credentials\PaymentMethodRegistry;
+use Wirecard\Credentials\Exception\InvalidXMLFormatException;
 use Exception;
 use DOMDocument;
 use DOMXPath;

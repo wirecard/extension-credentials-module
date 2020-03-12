@@ -1,18 +1,24 @@
 <?php
+/**
+ * Shop System Extensions:
+ * - Terms of Use can be found at:
+ * https://github.com/wirecard/extension-credentials-module/blob/master/_TERMS_OF_USE
+ * - License can be found under:
+ * https://github.com/wirecard/extension-credentials-module/blob/master/LICENSE
+ */
 
+namespace WirecardTest;
 
-namespace CredentialsTest;
-
-use Credentials\Exception\InvalidPaymentMethodException;
-use Credentials\PaymentMethod;
-use Credentials\PaymentMethodRegistry;
+use Wirecard\Credentials\Exception\InvalidPaymentMethodException;
+use Wirecard\Credentials\PaymentMethod;
+use Wirecard\Credentials\PaymentMethodRegistry;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class PaymentMethodTest
  * @package CredentialsTest
- * @coversDefaultClass \Credentials\PaymentMethod
+ * @coversDefaultClass \Wirecard\Credentials\PaymentMethod
  * @SuppressWarnings(PHPMD.LongVariable)
  * @since 1.0.0
  */
