@@ -71,7 +71,7 @@ class PaymentMethodRegistry
     /**
      * @var string
      */
-    const TYPE_P24 = "24";
+    const TYPE_P24 = "p24";
 
     /**
      * @return array
