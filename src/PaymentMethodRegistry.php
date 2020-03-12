@@ -1,6 +1,6 @@
 <?php
 
-namespace Credentials;
+namespace Wirecard\Credentials;
 
 /**
  * Class PaymentMethodRegistry

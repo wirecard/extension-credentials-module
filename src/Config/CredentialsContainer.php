@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Credentials\Config;
+namespace Wirecard\Credentials\Config;
 
 interface CredentialsContainer
 {

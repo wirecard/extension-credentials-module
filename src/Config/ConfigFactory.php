@@ -1,11 +1,11 @@
 <?php
 
-namespace Credentials\Config;
+namespace Wirecard\Credentials\Config;
 
-use Credentials\PaymentMethod;
-use Credentials\PaymentMethodRegistry;
-use Credentials\Exception\InvalidPaymentMethodException;
-use Credentials\Exception\MissedCredentialsException;
+use Wirecard\Credentials\PaymentMethod;
+use Wirecard\Credentials\PaymentMethodRegistry;
+use Wirecard\Credentials\Exception\InvalidPaymentMethodException;
+use Wirecard\Credentials\Exception\MissedCredentialsException;
 
 /**
  * Class ConfigFactory

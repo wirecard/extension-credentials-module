@@ -1,16 +1,16 @@
 <?php
 
 
-namespace CredentialsTest\Exception;
+namespace WirecardTest\Exception;
 
-use Credentials\PaymentMethodRegistry;
+use Wirecard\Credentials\PaymentMethodRegistry;
 use PHPUnit\Framework\TestCase;
-use Credentials\Exception\InvalidPaymentMethodException;
+use Wirecard\Credentials\Exception\InvalidPaymentMethodException;
 
 /**
  * Class InvalidPaymentMethodExceptionTest
  * @package CredentialsTest\Exception
- * @coversDefaultClass \Credentials\Exception\InvalidPaymentMethodException
+ * @coversDefaultClass \Wirecard\Credentials\Exception\InvalidPaymentMethodException
  * @since 1.0.0
  */
 class InvalidPaymentMethodExceptionTest extends TestCase

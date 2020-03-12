@@ -1,9 +1,9 @@
 <?php
 
-namespace Credentials\Reader;
+namespace Wirecard\Credentials\Reader;
 
-use Credentials\PaymentMethodRegistry;
-use Credentials\Exception\InvalidXMLFormatException;
+use Wirecard\Credentials\PaymentMethodRegistry;
+use Wirecard\Credentials\Exception\InvalidXMLFormatException;
 use Exception;
 use DOMDocument;
 use DOMXPath;

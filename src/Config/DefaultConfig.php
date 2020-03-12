@@ -1,8 +1,8 @@
 <?php
 
-namespace Credentials\Config;
+namespace Wirecard\Credentials\Config;
 
-use Credentials\Exception\MissedCredentialsException;
+use Wirecard\Credentials\Exception\MissedCredentialsException;
 
 /**
  * Class DefaultConfig

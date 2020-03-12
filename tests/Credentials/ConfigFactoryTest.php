@@ -1,23 +1,23 @@
 <?php
 
-namespace CredentialsTest\Credentials;
+namespace WirecardTest\Credentials;
 
-use Credentials\Config\CredentialsConfigInterface;
-use Credentials\Config\CredentialsCreditCardConfig;
-use Credentials\PaymentMethod;
-use Credentials\PaymentMethodRegistry;
-use Credentials\Config\ConfigFactory;
-use Credentials\Config\CreditCardConfig;
-use Credentials\Config\DefaultConfig;
-use Credentials\Exception\MissedCredentialsException;
-use Credentials\Exception\InvalidPaymentMethodException;
+use Wirecard\Credentials\Config\CredentialsConfigInterface;
+use Wirecard\Credentials\Config\CredentialsCreditCardConfig;
+use Wirecard\Credentials\PaymentMethod;
+use Wirecard\Credentials\PaymentMethodRegistry;
+use Wirecard\Credentials\Config\ConfigFactory;
+use Wirecard\Credentials\Config\CreditCardConfig;
+use Wirecard\Credentials\Config\DefaultConfig;
+use Wirecard\Credentials\Exception\MissedCredentialsException;
+use Wirecard\Credentials\Exception\InvalidPaymentMethodException;
 use PHPUnit\Framework\TestCase;
 use Generator;
 
 /**
  * Class ConfigFactoryTest
  * @package CredentialsTest\Reader
- * @coversDefaultClass \Credentials\Config\ConfigFactory
+ * @coversDefaultClass \Wirecard\Credentials\Config\ConfigFactory
  * @SuppressWarnings(PHPMD.LongVariable)
  * @since 1.0.0
  */

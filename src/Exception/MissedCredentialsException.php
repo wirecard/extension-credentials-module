@@ -1,6 +1,6 @@
 <?php
 
-namespace Credentials\Exception;
+namespace Wirecard\Credentials\Exception;
 
 use Exception;
 use Throwable;

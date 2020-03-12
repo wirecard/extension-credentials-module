@@ -1,8 +1,8 @@
 <?php
 
-namespace Credentials;
+namespace Wirecard\Credentials;
 
-use Credentials\Exception\InvalidPaymentMethodException;
+use Wirecard\Credentials\Exception\InvalidPaymentMethodException;
 
 /**
  * Class PaymentMethod

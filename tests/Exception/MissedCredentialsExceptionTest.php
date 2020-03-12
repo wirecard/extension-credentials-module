@@ -1,15 +1,15 @@
 <?php
 
 
-namespace CredentialsTest\Exception;
+namespace WirecardTest\Exception;
 
 use PHPUnit\Framework\TestCase;
-use Credentials\Exception\MissedCredentialsException;
+use Wirecard\Credentials\Exception\MissedCredentialsException;
 
 /**
  * Class MissedCredentialsExceptionTest
  * @package CredentialsTest\Constants
- * @coversDefaultClass \Credentials\Exception\MissedCredentialsException
+ * @coversDefaultClass \Wirecard\Credentials\Exception\MissedCredentialsException
  * @since 1.0.0
  */
 class MissedCredentialsExceptionTest extends TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace Credentials\Reader;
+namespace Wirecard\Credentials\Reader;
 
 /**
  * Interface ReaderInterface

@@ -1,18 +1,18 @@
 <?php
 
 
-namespace CredentialsTest;
+namespace WirecardTest;
 
-use Credentials\Exception\InvalidPaymentMethodException;
-use Credentials\PaymentMethod;
-use Credentials\PaymentMethodRegistry;
+use Wirecard\Credentials\Exception\InvalidPaymentMethodException;
+use Wirecard\Credentials\PaymentMethod;
+use Wirecard\Credentials\PaymentMethodRegistry;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class PaymentMethodTest
  * @package CredentialsTest
- * @coversDefaultClass \Credentials\PaymentMethod
+ * @coversDefaultClass \Wirecard\Credentials\PaymentMethod
  * @SuppressWarnings(PHPMD.LongVariable)
  * @since 1.0.0
  */

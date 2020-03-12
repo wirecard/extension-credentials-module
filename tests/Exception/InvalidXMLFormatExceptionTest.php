@@ -1,15 +1,15 @@
 <?php
 
 
-namespace CredentialsTest\Exception;
+namespace WirecardTest\Exception;
 
 use PHPUnit\Framework\TestCase;
-use Credentials\Exception\InvalidXMLFormatException;
+use Wirecard\Credentials\Exception\InvalidXMLFormatException;
 
 /**
  * Class InvalidXMLFormatExceptionTest
  * @package CredentialsTest\Exception
- * @coversDefaultClass \Credentials\Exception\InvalidXMLFormatException
+ * @coversDefaultClass \Wirecard\Credentials\Exception\InvalidXMLFormatException
  * @since 1.0.0
  */
 class InvalidXMLFormatExceptionTest extends TestCase

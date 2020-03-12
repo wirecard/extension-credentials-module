@@ -1,18 +1,18 @@
 <?php
 
-namespace CredentialsTest\Reader;
+namespace WirecardTest\Reader;
 
-use Credentials\Config\CredentialsConfigInterface;
-use Credentials\Config\CredentialsCreditCardConfig;
-use Credentials\Config\CreditCardConfig;
-use Credentials\Config\DefaultConfig;
-use Credentials\Exception\MissedCredentialsException;
+use Wirecard\Credentials\Config\CredentialsConfigInterface;
+use Wirecard\Credentials\Config\CredentialsCreditCardConfig;
+use Wirecard\Credentials\Config\CreditCardConfig;
+use Wirecard\Credentials\Config\DefaultConfig;
+use Wirecard\Credentials\Exception\MissedCredentialsException;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class CreditCardConfigTest
  * @package CredentialsTest\Reader
- * @coversDefaultClass \Credentials\Config\CreditCardConfig
+ * @coversDefaultClass \Wirecard\Credentials\Config\CreditCardConfig
  * @since 1.0.0
  */
 class CreditCardConfigTest extends TestCase

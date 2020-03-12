@@ -1,13 +1,13 @@
 <?php
 
-namespace Credentials;
+namespace Wirecard\Credentials;
 
-use Credentials\Config\ConfigFactory;
-use Credentials\Config\CredentialsConfigInterface;
-use Credentials\Config\CredentialsContainer;
-use Credentials\Config\CredentialsCreditCardConfig;
-use Credentials\Exception\InvalidPaymentMethodException;
-use Credentials\Reader\XMLReader;
+use Wirecard\Credentials\Config\ConfigFactory;
+use Wirecard\Credentials\Config\CredentialsConfigInterface;
+use Wirecard\Credentials\Config\CredentialsContainer;
+use Wirecard\Credentials\Config\CredentialsCreditCardConfig;
+use Wirecard\Credentials\Exception\InvalidPaymentMethodException;
+use Wirecard\Credentials\Reader\XMLReader;
 use RuntimeException;
 
 /**

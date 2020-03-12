@@ -2,8 +2,8 @@
 
 namespace CredentialsReaderTest\Reader;
 
-use Credentials\Exception\InvalidXMLFormatException;
-use Credentials\Reader\XMLReader;
+use Wirecard\Credentials\Exception\InvalidXMLFormatException;
+use Wirecard\Credentials\Reader\XMLReader;
 use PHPUnit\Framework\TestCase;
 use Generator;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -11,7 +11,7 @@ use PHPUnit_Framework_MockObject_MockObject;
 /**
  * Class XMLReaderTest
  * @package CredentialsReaderTest\Reader
- * @coversDefaultClass \Credentials\Reader\XMLReader
+ * @coversDefaultClass \Wirecard\Credentials\Reader\XMLReader
  * @since 1.0.0
  */
 class XMLReaderTest extends TestCase
