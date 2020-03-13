@@ -58,6 +58,7 @@ class XMLFileValidator implements FileValidatorInterface
      */
     public function validate($filePath)
     {
+        $result = false;
         try {
             $dom = new DOMDocument();
             $dom->load($filePath);
@@ -66,7 +67,10 @@ class XMLFileValidator implements FileValidatorInterface
             if ($this->throwError) {
                 throw new InvalidXMLFormatException($e->getMessage());
             }
-            $result = false;
+        } finally {
+            if ($this->throwError && !$result) {
+                throw new InvalidXMLFormatException();
+            }
         }
 
         return $result;
