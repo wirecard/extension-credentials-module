@@ -49,6 +49,7 @@
                             <xs:element name="sepacredit" type="PaymentMethodConfig" minOccurs="0"/>
                             <xs:element name="sepadirectdebit" type="PaymentMethodConfig" minOccurs="0"/>
                             <xs:element name="masterpass" type="PaymentMethodConfig" minOccurs="0"/>
+                            <xs:element name="p24" type="PaymentMethodConfig" minOccurs="0"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
