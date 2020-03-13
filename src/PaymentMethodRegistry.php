@@ -68,6 +68,10 @@ class PaymentMethodRegistry
      * @var string
      */
     const TYPE_MASTERPASS = "masterpass";
+    /**
+     * @var string
+     */
+    const TYPE_P24 = "p24";
 
     /**
      * @return array
@@ -88,7 +92,8 @@ class PaymentMethodRegistry
             self::TYPE_ZAPP,
             self::TYPE_SEPACREDIT,
             self::TYPE_SEPA_DIRECT_DEBIT,
-            self::TYPE_MASTERPASS
+            self::TYPE_MASTERPASS,
+            self::TYPE_P24,
         ];
     }
 }
