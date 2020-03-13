@@ -16,6 +16,7 @@ use Wirecard\Credentials\Config\CredentialsCreditCardConfig;
 use Wirecard\Credentials\Exception\InvalidPaymentMethodException;
 use Wirecard\Credentials\Reader\XMLFileValidator;
 use Wirecard\Credentials\Reader\XMLReader;
+use RuntimeException;
 
 /**
  * Class Credentials
@@ -82,9 +83,13 @@ class Credentials
      * @param string $filePath
      * @return bool
      * @throws Exception\InvalidXMLFormatException
+     * @throws RuntimeException
      */
     public function validateSource($filePath)
     {
+        if (!is_readable($filePath)) {
+            throw new RuntimeException("File is not readable: " . $filePath);
+        }
         return (new XMLFileValidator())->validate($filePath);
     }
 }

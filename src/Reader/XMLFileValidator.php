@@ -55,10 +55,16 @@ class XMLFileValidator implements FileValidatorInterface
      * @return bool
      * @throws InvalidXMLFormatException
      * @since 1.0.0
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     public function validate($filePath)
     {
         $result = false;
+        set_error_handler(function ($type, $message, $file, $line) {
+            throw new InvalidXMLFormatException(
+                "Error {$message} with type: {$type} was occurred in {$file} on line {$line}"
+            );
+        });
         try {
             $dom = new DOMDocument();
             $dom->load($filePath);
@@ -67,11 +73,8 @@ class XMLFileValidator implements FileValidatorInterface
             if ($this->throwError) {
                 throw new InvalidXMLFormatException($e->getMessage());
             }
-        } finally {
-            if ($this->throwError && !$result) {
-                throw new InvalidXMLFormatException();
-            }
         }
+        restore_error_handler();
 
         return $result;
     }

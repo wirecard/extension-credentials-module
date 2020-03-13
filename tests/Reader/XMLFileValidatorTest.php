@@ -42,8 +42,6 @@ class XMLFileValidatorTest extends TestCase
         ["{$mockFilePath}/invalid_xml_file_invalid_payment_method.xml"];
         yield "invalid_xml_file_missing_payment_name" =>
         ["{$mockFilePath}/invalid_xml_file_missing_payment_name.xml"];
-        yield "invalid_xml_empty" =>
-        ["{$mockFilePath}/invalid_xml_path_wrong.xml"];
         yield "invalid_xml_file_missing_required_field" =>
         ["{$mockFilePath}/invalid_xml_file_missing_required_field.xml"];
         yield "invalid_xml_file_wrong_order" =>
