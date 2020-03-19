@@ -48,6 +48,13 @@ class XMLReaderTest extends TestCase
                             <http_user>user</http_user>
                             <http_pass>password</http_pass>
                         </paypal>
+                         <eps name="PayPal">
+                            <merchant_account_id>*****</merchant_account_id>
+                            <secret>*****</secret>
+                            <base_url>*****</base_url>
+                            <http_user>*****</http_user>
+                            <http_pass>*****</http_pass>
+                        </eps>
                     </payment_methods>
 
                 </config>
@@ -78,7 +85,14 @@ class XMLReaderTest extends TestCase
                     'base_url' => 'https://api-test.wirecard.com',
                     'http_user' => 'user',
                     'http_pass' => 'password',
-                ]
+                ],
+                "eps" => [
+                    'merchant_account_id' => '*****',
+                    'secret' => '*****',
+                    'base_url' => '*****',
+                    'http_user' => '*****',
+                    'http_pass' => '*****',
+                ],
             ]];
     }
 
