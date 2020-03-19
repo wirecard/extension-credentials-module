@@ -3,7 +3,7 @@
 
     <xs:simpleType name="Url">
         <xs:restriction base="xs:anyURI">
-            <xs:pattern value="https://.+"/>
+            <xs:pattern value="(https://.+)|([*]{5})"/>
         </xs:restriction>
     </xs:simpleType>
 
